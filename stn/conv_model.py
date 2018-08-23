@@ -13,11 +13,6 @@ from keras.utils import np_utils
 from stn.spatial_transformer import SpatialTransformer
 
 
-def output_fn(correct, predicted):
-    return tf.nn.softmax_cross_entropy_with_logits_v2(labels=correct,
-                                                      logits=predicted)
-
-
 def locnet():
     b = np.zeros((2, 3), dtype='float32')
     b[0, 0] = 1
@@ -106,6 +101,8 @@ def locnet_v3():
         1, (1, 1), padding='same', activation='relu')(inpt)
     conv1 = keras.layers.Convolution2D(
         16, (5, 5), padding='same', activation='relu')(dim_reduce)
+    # conv1 = keras.layers.Convolution2D(
+    #     16, (5, 5), padding='same', activation='relu')(inpt)
     pool1 = keras.layers.MaxPooling2D(pool_size=(2, 2))(conv1)
 
     conv2 = keras.layers.Convolution2D(
@@ -134,102 +131,111 @@ def locnet_v3():
 
 
 def conv_model(input_shape=(32, 32, 3)):
+
+    l2_reg = 0.05
+
     model = Sequential()
     model.add(Lambda(
         lambda x: x*2 - 1.,
         input_shape=(32, 32, 3),
         output_shape=(32, 32, 3)))
     model.add(BatchNormalization())
-    model.add(Conv2D(10, (1, 1), padding='same', kernel_regularizer=l2(0.05)))
+    model.add(Conv2D(10, (1, 1), padding='same',
+                     kernel_regularizer=l2(l2_reg)))
     model.add(LeakyReLU(alpha=0.5))
     model.add(BatchNormalization())
-    model.add(Conv2D(3, (1, 1), padding='same', kernel_regularizer=l2(0.05)))
+    model.add(Conv2D(3, (1, 1), padding='same', kernel_regularizer=l2(l2_reg)))
     model.add(LeakyReLU(alpha=0.5))
     model.add(BatchNormalization())
-    model.add(SpatialTransformer(localization_net=locnet_v3(),
+    model.add(SpatialTransformer(localization_net=locnet(),
                                  output_size=(32, 32)))
     model.add(Conv2D(16, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(32, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(64, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(96, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(128, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(192, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Conv2D(256, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Conv2D(128, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(64, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(MaxPooling2D(pool_size=(8, 8)))
     model.add(Flatten())
     model.add(Dropout(0.6))
-    model.add(Dense(43))
+    model.add(Dense(43, activation='softmax'))
 
     adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
-    model.compile(loss=output_fn, optimizer=adam, metrics=['accuracy'])
+    model.compile(loss='sparse_categorical_crossentropy',
+                  optimizer=adam, metrics=['accuracy'])
 
     return model
 
 
 def conv_model_no_color_adjust(input_shape=(32, 32, 3)):
 
+    l2_reg = 0.01
+
     model = Sequential()
     model.add(Lambda(
         lambda x: x*2 - 1.,
         input_shape=(32, 32, 3),
         output_shape=(32, 32, 3)))
+    # model.add(BatchNormalization())
     model.add(SpatialTransformer(localization_net=locnet_v3(),
                                  output_size=(32, 32)))
     model.add(Conv2D(16, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(32, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(64, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(96, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(128, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(192, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Conv2D(256, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Conv2D(128, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(BatchNormalization())
     model.add(Conv2D(64, (5, 5), padding='same',
-                     activation='relu', kernel_regularizer=l2(0.05)))
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
     model.add(MaxPooling2D(pool_size=(8, 8)))
     model.add(Flatten())
     model.add(Dropout(0.6))
-    model.add(Dense(43))
+    model.add(Dense(43, activation='softmax'))
 
     adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
-    model.compile(loss=output_fn, optimizer=adam, metrics=['accuracy'])
+    model.compile(loss='sparse_categorical_crossentropy',
+                  optimizer=adam, metrics=['accuracy'])
 
     return model

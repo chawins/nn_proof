@@ -14,9 +14,6 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 X_train, y_train, X_val, y_val, X_test, y_test = load_gtsrb()
-y_train = to_categorical(y_train, NUM_LABELS)
-y_test = to_categorical(y_test, NUM_LABELS)
-y_val = to_categorical(y_val, NUM_LABELS)
 
 print("Number of training examples =", X_train.shape[0])
 print("Number of validating examples =", X_val.shape[0])
@@ -26,22 +23,35 @@ print("Number of classes =", NUM_LABELS)
 
 batch_size = 128
 epochs = 150
-model = conv_model()
-# model = conv_model_no_color_adjust()
-save_path = "./keras_weights/stn_color_locnet_v3.hdf5"
+# model = conv_model()
+model = conv_model_no_color_adjust()
+save_path = "./keras_weights/stn_v8.hdf5"
 
 checkpointer = ModelCheckpoint(
     filepath=save_path, verbose=1, save_best_only=True,
     save_weights_only=True)
 earlystop = EarlyStopping(monitor='val_loss', min_delta=0, patience=5,
                           verbose=0, mode='auto', baseline=None)
+
+datagen = ImageDataGenerator(
+    rotation_range=5,
+    width_shift_range=0.1,
+    height_shift_range=0.1,
+    zoom_range=0.1,
+    channel_shift_range=0.1)
 try:
-    model.fit(X_train, y_train,
-              batch_size=batch_size,
-              epochs=epochs,
-              validation_data=(X_val, y_val),
-              shuffle=True,
-              callbacks=[checkpointer, earlystop])
+    model.fit_generator(datagen.flow(X_train, y_train, batch_size=batch_size),
+                        steps_per_epoch=len(X_train)/batch_size, epochs=epochs,
+                        verbose=1, shuffle=True,
+                        callbacks=[checkpointer, earlystop],
+                        validation_data=(X_val, y_val))
+# try:
+#     model.fit(X_train, y_train,
+#               batch_size=batch_size,
+#               epochs=epochs,
+#               validation_data=(X_val, y_val),
+#               shuffle=True,
+#               callbacks=[checkpointer, earlystop])
 except KeyboardInterrupt:
     print("training interrupted")
 

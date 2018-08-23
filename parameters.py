@@ -18,6 +18,7 @@ import numpy as np
 import tensorflow as tf
 from keras.optimizers import SGD
 from keras.preprocessing.image import ImageDataGenerator
+from keras.utils import to_categorical
 from pandas.io.parsers import read_csv
 from scipy import misc
 from tensorflow.contrib.opt import ScipyOptimizerInterface
