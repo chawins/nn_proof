@@ -1,11 +1,12 @@
 from cleverhans.attacks import FastGradientMethod, CarliniWagnerL2
-from cleverhans.utils import AccuracyReport
+from cleverhans.utils import AccuracyReport, set_log_level
 from cleverhans.utils_keras import KerasModelWrapper
 from cleverhans.utils_tf import model_eval
 from lib.utils import load_gtsrb
 from parameters import *
 from small_net import *
 from stn.conv_model import conv_model_no_color_adjust
+import logging
 
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -28,6 +29,8 @@ if K.image_dim_ordering() != 'tf':
 sess = tf.Session()
 K.set_session(sess)
 
+set_log_level(logging.DEBUG)
+
 # Load GTSRB dataset
 X_train, y_train, X_val, y_val, X_test, y_test = load_gtsrb()
 y_train = to_categorical(y_train)
@@ -37,6 +40,20 @@ y_val = to_categorical(y_val)
 # Obtain Image Parameters
 img_rows, img_cols, nchannels = X_train.shape[1:4]
 nb_classes = y_train.shape[1]
+
+# Choosing samples to attack
+n_attack = 500
+ind_1 = np.where(np.argmax(y_test, axis=1) == 1)
+ind_14 = np.where(np.argmax(y_test, axis=1) == 14)
+X_atk = np.zeros((n_attack, ) + X_test.shape[1:4])
+X_atk[:n_attack//2] = X_test[ind_1][:n_attack//2]
+X_atk[n_attack//2:] = X_test[ind_14][:n_attack//2]
+
+y_target = np.zeros((n_attack, ))
+y_target[:n_attack//2] = 14
+y_target[n_attack//2:] = 1
+y_target = to_categorical(y_target, nb_classes)
+print(y_target)
 
 # Define input TF placeholder
 x = tf.placeholder(tf.float32, shape=(None, img_rows, img_cols, nchannels))
@@ -76,10 +93,21 @@ report.clean_train_clean_eval = acc
 # print('Test accuracy on adversarial examples: %0.4f\n' % acc)
 
 # CarliniWagner attack
-cw = CarliniWagnerL2(clf, back='tf', sess=sess)
+# cw = CarliniWagnerL2(clf, back='tf', sess=sess)
+from lib.white_box_attack import CarliniWagnerL2_WB
+
+ensemble = []
+for i in range(nb_classes):
+    nets = []
+    if i == 1:
+        nets.append(KerasModelWrapper(detect_3))
+    elif i == 14:
+        nets.append(KerasModelWrapper(detect_S))
+    ensemble.append(nets)
+print(ensemble)
+
 
 # Untargeted attack
-n_attack = 1000
 attack_iterations = 100
 # adv_inputs = X_test[:n_attack]
 # adv_ys = None
@@ -87,15 +115,89 @@ attack_iterations = 100
 cw_params = {'binary_search_steps': 1,
              'max_iterations': attack_iterations,
              'learning_rate': 0.1,
-             'batch_size': 1000,
-             'initial_const': 1e-2}
+             'batch_size': n_attack,
+             'initial_const': 1e-2,
+             'y_target': y_target}
+# cw_params = {'binary_search_steps': 1,
+#              'max_iterations': attack_iterations,
+#              'learning_rate': 0.1,
+#              'batch_size': n_attack,
+#              'initial_const': 1e-2}
+
+# cw = CarliniWagnerL2(wrap_clf, back='tf', sess=sess)
 # adv_x = cw.generate(x, **cw_params)
 # preds_adv = clf(adv_x)
 # acc = model_eval(sess, x, y, preds_adv, X_test[:n_attack],
 #                  y_test[:n_attack], args=eval_par)
 # print('Test accuracy on CW adversarial examples: %0.4f\n' % acc)
-adv = cw.generate_np(X_test[:n_attack], **cw_params)
-print(adv)
+
+# ======================= MY CODE ======================= #
+cw = CarliniWagnerL2_WB(wrap_clf, ensemble=ensemble, back='tf', sess=sess)
+
+adv = cw.generate_np(X_atk, **cw_params)
+# print(adv)
+
+# Evaluate clean samples
+pred_clf = clf.predict(X_atk)
+pred_3 = detect_3.predict(X_atk)
+pred_S = detect_S.predict(X_atk)
+n_correct_clf = 0
+n_correct_3 = 0
+n_correct_S = 0
+for i in range(n_attack):
+    if i < n_attack//2:
+        if np.argmax(pred_clf[i]) == 1:
+            n_correct_clf += 1
+            if np.argmax(pred_3[i]) == 1:
+                n_correct_3 += 1
+    else:
+        if np.argmax(pred_clf[i]) == 14:
+            n_correct_clf += 1
+            if np.argmax(pred_S[i]) == 1:
+                n_correct_S += 1
+print("Correct classification only by clf: ", n_correct_clf)
+print("Correct classification by clf & detect_3: ", n_correct_3)
+print("Correct classification by clf & detect_S: ", n_correct_S)
+
+# Evaluate adv
+pred_clf = clf.predict(adv)
+pred_3 = detect_3.predict(adv)
+pred_S = detect_S.predict(adv)
+n_suc_clf = 0
+n_suc_3 = 0   # Fool to predict as '30'
+n_suc_S = 0
+
+for i in range(n_attack):
+    if i < n_attack//2:
+        if np.argmax(pred_clf[i]) == 14:
+            n_suc_clf += 1
+            if np.argmax(pred_S[i]) == 1:
+                n_suc_S += 1
+    else:
+        if np.argmax(pred_clf[i]) == 1:
+            n_suc_clf += 1
+            if np.argmax(pred_3[i]) == 1:
+                n_suc_3 += 1
+
+# Eval untargeted
+# for i in range(n_attack):
+#     if i < n_attack//2:
+#         if np.argmax(pred_clf[i]) != 1:
+#             n_suc_clf += 1
+#             if np.argmax(pred_3[i]) != 1:
+#                 n_suc_3 += 1
+#     else:
+#         if np.argmax(pred_clf[i]) != 14:
+#             n_suc_clf += 1
+#             if np.argmax(pred_S[i]) != 1:
+#                 n_suc_S += 1
+
+print("\n\n==========================================\n\n")
+print("Successful attack only on clf: ", n_suc_clf)
+print("Successful attack on clf & detect_3: ", n_suc_3)
+print("Successful attack on clf & detect_S: ", n_suc_S)
+
+print(np.sum(X_atk - adv))
 
 # batch_size = 1,
 # confidence = 0,

@@ -6,17 +6,29 @@ from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
 from parameters import *
+from stn.spatial_transformer import SpatialTransformer
+from stn.conv_model import locnet_v3
 
 
-def create_simple_cnn(pos):
+def create_simple_cnn(pos, stn_weight=None):
 
     top, bot, left, right = pos
     height = bot - top
     width = right - left
 
     model = Sequential()
-    model.add(Cropping2D(cropping=((top, 32 - bot), (left, 32 - right)),
-                         input_shape=(32, 32, 3)))
+    model.add(Lambda(
+        lambda x: x*2 - 1.,
+        input_shape=(32, 32, 3),
+        output_shape=(32, 32, 3)))
+    # Add spartial transformer part
+    model.add(SpatialTransformer(localization_net=locnet_v3(),
+                                 output_size=(32, 32),
+                                 trainable=False,
+                                 weights=stn_weight))
+    # model.add(Cropping2D(cropping=((top, 32 - bot), (left, 32 - right)),
+    #                      input_shape=(32, 32, 3)))
+    model.add(Cropping2D(cropping=((top, 32 - bot), (left, 32 - right))))
     model.add(BatchNormalization())
     model.add(Conv2D(16, (3, 3), activation='relu'))
     model.add(BatchNormalization())
@@ -47,17 +59,12 @@ def create_simple_cnn(pos):
     return model
 
 
-def train_simple_cnn(stn_fnc, pos, y, X_train, y_train, X_val, y_val,
+def train_simple_cnn(stn_weight, pos, y, X_train, y_train, X_val, y_val,
                      save_path="./keras_weights/temp.hdf5"):
 
-    # ------- Prepare training and test sets ------- #
-    # Transform with stn
-    X_train_stn = stn_fnc([X_train, 0])[0]
-    X_val_stn = stn_fnc([X_val, 0])[0]
-
     # Balance train/val set
-    X_train_bal, y_train_bal = gen_balance_data(X_train_stn, y_train, y, r=1)
-    X_val_bal, y_val_bal = gen_balance_data(X_val_stn, y_val, y, r=1)
+    X_train_bal, y_train_bal = gen_balance_data(X_train, y_train, y, r=1)
+    X_val_bal, y_val_bal = gen_balance_data(X_val, y_val, y, r=1)
 
     # ---------------- Train model ----------------- #
     checkpointer = ModelCheckpoint(
@@ -66,7 +73,7 @@ def train_simple_cnn(stn_fnc, pos, y, X_train, y_train, X_val, y_val,
     earlystop = EarlyStopping(monitor='val_loss', min_delta=0, patience=5,
                               verbose=0, mode='auto', baseline=None)
 
-    model = create_simple_cnn(pos)
+    model = create_simple_cnn(pos, stn_weight)
     adam = Adam(lr=1e-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
     model.compile(loss='sparse_categorical_crossentropy',
                   optimizer=adam, metrics=['accuracy'])
@@ -115,9 +122,8 @@ def eval_simple_cnn(model, stn_fnc, y, X_test, y_test):
     detected).
     """
 
-    X_test_d = stn_fnc([X_test, 0])[0]
     y_test_d = (y_test == y).astype(int)
-    y_pred = model.predict(X_test_d)
+    y_pred = model.predict(X_test)
     y_pred = np.argmax(y_pred, axis=-1)
     acc = np.sum(y_pred == y_test_d) / len(y_pred)
     fpr = np.sum(np.logical_and(y_pred != y_test_d, y_test_d == 0)
