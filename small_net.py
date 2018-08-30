@@ -115,14 +115,20 @@ def train_simple_cnn(stn_weight, pos, y, X_train, y_train, X_val, y_val,
     return model
 
 
-def eval_simple_cnn(model, stn_fnc, y, X_test, y_test):
+def eval_simple_cnn(model, y, X_test, y_test):
     """
     Evaluates small CNN. Returns accuracy, false positive rate, false negative 
     rate. Class '0' is negative (no feature detected), '1' is positive (feature
     detected).
     """
 
-    y_test_d = (y_test == y).astype(int)
+    ind = np.array([], dtype=np.int32)
+    for yy in y:
+        ind_y = np.where(y_test == yy)[0]
+        ind = np.concatenate((ind, ind_y), axis=0)
+
+    y_test_d = np.zeros((len(y_test), ))
+    y_test_d[ind] = 1
     y_pred = model.predict(X_test)
     y_pred = np.argmax(y_pred, axis=-1)
     acc = np.sum(y_pred == y_test_d) / len(y_pred)
@@ -147,12 +153,21 @@ def weighted_cross_entropy_loss(y_true, y_pred):
 
 
 def gen_balance_data(X_train, y_train, y, r=1):
+    """
+    Generate balanced (r=1) dataset by copying the samples with a label in y
+    """
+
+    ind = np.array([], dtype=np.int32)
+    for yy in y:
+        ind_y = np.where(y_train == yy)[0]
+        ind = np.concatenate((ind, ind_y), axis=0)
 
     n_train = len(X_train)
-    n_bal = int(n_train*r)
+    n_y = len(ind)
+    n_bal = int(n_train*r) - n_y*2  # Number of samples to add
     X_eq = np.zeros((n_train + n_bal, 32, 32, 3))
     X_eq[:n_train] = np.copy(X_train)
-    ind = np.where(y_train == y)[0]
+
     rnd_ind = np.random.choice(ind, size=n_bal)
     X_eq[n_train:] = np.copy(X_train[rnd_ind])
 

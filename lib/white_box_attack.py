@@ -238,10 +238,10 @@ class CarliniWagnerL2_WB_TF(object):
         ind_label = tf.stack([ind, label], axis=1)
         label_nets = tf.gather_nd(self.ensemble_out, ind_label)
 
-        print(self.ensemble_out.get_shape())
-        print(label.get_shape())
-        print(ind_label)
-        print(label_nets)
+        print("self.ensemble_out: ", self.ensemble_out)
+        print("label: ", label)
+        print("ind_label: ", ind_label)
+        print("label_nets: ", label_nets)
 
         # Get the loss function for the small net part
         if self.TARGETED:
@@ -253,15 +253,15 @@ class CarliniWagnerL2_WB_TF(object):
         else:
             # DOUBLE-CHECK
             pass
-        ensemble_loss = tf.maximum(ZERO(), diff + self.CONFIDENCE)
-        print(ensemble_loss)
-        print("first loss1")
-        print(loss1)
-        # loss1 = tf.maximum(loss1, tf.squeeze(ensemble_loss))
-        print("second loss1")
-        print(loss1)
+        max_diff = tf.reduce_max(diff, axis=1)
+        print("max_diff: ", max_diff)
+        ensemble_loss = tf.maximum(ZERO(), max_diff + self.CONFIDENCE)
+        print("ensemble_loss: ", ensemble_loss)
+        print("first loss1: ", loss1)
+        loss1 = tf.maximum(loss1, tf.squeeze(ensemble_loss))
+        print("second loss1: ", loss1)
         self.loss1 = reduce_sum(self.const * loss1)
-        print(self.loss1)
+        print("reduce_sum loss1: ", self.loss1)
         self.loss = self.loss1 + self.loss2
 
         # Setup the adam optimizer and keep track of variables we're creating
@@ -360,8 +360,8 @@ class CarliniWagnerL2_WB_TF(object):
                 })
 
             # DEBUG
-            ensemble_out = self.sess.run([self.ensemble_out])
-            _logger.debug(ensemble_out)
+            # ensemble_out = self.sess.run([self.ensemble_out])
+            # _logger.debug(ensemble_out)
 
             prev = 1e6
             for iteration in range(self.MAX_ITERATIONS):

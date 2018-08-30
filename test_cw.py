@@ -60,16 +60,11 @@ x = tf.placeholder(tf.float32, shape=(None, img_rows, img_cols, nchannels))
 y = tf.placeholder(tf.float32, shape=(None, nb_classes))
 
 # Load and set up all models
-pos_3 = (7, 24, 6, 17)
-pos_S = (7, 24, 0, 11)
+# from stn.conv_model import build_cnn_no_stn
+# clf = build_cnn_no_stn()
+# clf.load_weights("./keras_weights/cnn_v4.hdf5")
 clf = conv_model_no_color_adjust()
 clf.load_weights("./keras_weights/stn_v5.hdf5")
-# get_stn_output = K.function([clf.layers[0].input, K.learning_phase()],
-#                             [clf.layers[1].output])
-# detect_3 = create_simple_cnn(pos_3)
-# detect_3.load_weights("./keras_weights/1_3.hdf5")
-# detect_S = create_simple_cnn(pos_S)
-# detect_S.load_weights("./keras_weights/14_S.hdf5")
 
 wrap_clf = KerasModelWrapper(clf)
 preds = clf(x)
@@ -79,39 +74,32 @@ acc = model_eval(sess, x, y, preds, X_test, y_test, args=eval_par)
 print('Test accuracy on legitimate test examples: {0}'.format(acc))
 report.clean_train_clean_eval = acc
 
+# FGSM
 # fgsm = FastGradientMethod(wrap_clf, sess=sess)
 # fgsm_params = {'eps': 0.1,
 #                'clip_min': 0.,
 #                'clip_max': 1.}
-# adv_x = fgsm.generate(x, **fgsm_params)
-# # Consider the attack to be constant
-# adv_x = tf.stop_gradient(adv_x)
-# preds_adv = clf(adv_x)
+# adv_x = fgsm.generate_np(X_atk, **fgsm_params)
 
 # # Evaluate the accuracy of the MNIST model on adversarial examples
 # acc = model_eval(sess, x, y, preds_adv, X_test, y_test, args=eval_par)
 # print('Test accuracy on adversarial examples: %0.4f\n' % acc)
 
 # CarliniWagner attack
-
-# Untargeted attack
-attack_iterations = 100
-# adv_inputs = X_test[:n_attack]
-# adv_ys = None
-# yname = 'y'
+attack_iterations = 200
 cw_params = {'binary_search_steps': 1,
              'max_iterations': attack_iterations,
              'learning_rate': 0.1,
              'batch_size': n_attack,
-             'initial_const': 1e-2,
+             'initial_const': 10,
              'y_target': y_target}
 # cw_params = {'binary_search_steps': 1,
 #              'max_iterations': attack_iterations,
 #              'learning_rate': 0.1,
 #              'batch_size': n_attack,
 #              'initial_const': 10}
-
 cw = CarliniWagnerL2(wrap_clf, back='tf', sess=sess)
+adv_x = cw.generate_np(X_atk, **cw_params)
 
 # adv_x = cw.generate(x, **cw_params)
 # preds_adv = clf(adv_x)
@@ -119,7 +107,6 @@ cw = CarliniWagnerL2(wrap_clf, back='tf', sess=sess)
 #                  y_test[:n_attack], args={'batch_size': n_attack})
 # print('Test accuracy on CW adversarial examples: %0.4f\n' % acc)
 
-adv_x = cw.generate_np(X_atk, **cw_params)
 pred = clf.predict(adv_x)
 # print(np.sum(np.argmax(pred, axis=1) != np.argmax(y_test[:n_attack], axis=1)))
 # pred_orig = clf.predict(X_atk)

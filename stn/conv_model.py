@@ -239,3 +239,148 @@ def conv_model_no_color_adjust(input_shape=(32, 32, 3)):
                   optimizer=adam, metrics=['accuracy'])
 
     return model
+
+
+def build_cnn():
+    """
+
+    """
+
+    L2_LAMBDA = 1e-4
+    l2_reg = keras.regularizers.l2(L2_LAMBDA)
+
+    # Build model
+    inpt = keras.layers.Input(shape=(32, 32, 3))
+    rescl = Lambda(lambda x: x*2 - 1., output_shape=(32, 32, 3))(inpt)
+    conv1 = keras.layers.Convolution2D(
+        16, (5, 5), padding='same', activation='relu')(rescl)
+    drop1 = keras.layers.Dropout(rate=0.1)(conv1)
+    conv2 = keras.layers.Convolution2D(
+        32, (5, 5), padding='same', activation='relu')(drop1)
+    drop2 = keras.layers.Dropout(rate=0.2)(conv2)
+    pool1 = keras.layers.MaxPooling2D(pool_size=(2, 2))(drop2)
+
+    conv3 = keras.layers.Convolution2D(
+        64, (5, 5), padding='same', activation='relu')(pool1)
+    drop3 = keras.layers.Dropout(rate=0.3)(conv3)
+    conv4 = keras.layers.Convolution2D(
+        128, (5, 5), padding='same', activation='relu')(drop3)
+    drop4 = keras.layers.Dropout(rate=0.3)(conv4)
+    pool2 = keras.layers.MaxPooling2D(pool_size=(2, 2))(drop4)
+
+    flat = keras.layers.Flatten()(pool2)
+    dense1 = keras.layers.Dense(200, activation='relu',
+                                kernel_regularizer=l2_reg)(flat)
+    drop5 = keras.layers.Dropout(rate=0.5)(dense1)
+    dense2 = keras.layers.Dense(200, activation='relu',
+                                kernel_regularizer=l2_reg)(drop5)
+    drop6 = keras.layers.Dropout(rate=0.5)(dense2)
+    output = keras.layers.Dense(
+        43, activation='softmax', kernel_regularizer=l2_reg)(drop6)
+    model = keras.models.Model(inputs=inpt, outputs=output)
+
+    # Specify optimizer
+    adam = keras.optimizers.Adam(
+        lr=1e-3, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
+    model.compile(optimizer=adam,
+                  loss='sparse_categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    return model
+
+
+def build_cnn_large():
+    """
+
+    """
+
+    L2_LAMBDA = 1e-4
+    l2_reg = keras.regularizers.l2(L2_LAMBDA)
+
+    # Build model
+    inpt = keras.layers.Input(shape=(32, 32, 3))
+    rescl = Lambda(lambda x: x*2 - 1., output_shape=(32, 32, 3))(inpt)
+    conv1 = keras.layers.Convolution2D(
+        32, (5, 5), padding='same', activation='relu')(rescl)
+    drop1 = keras.layers.Dropout(rate=0.1)(conv1)
+    conv2 = keras.layers.Convolution2D(
+        32, (5, 5), padding='same', activation='relu')(drop1)
+    drop2 = keras.layers.Dropout(rate=0.2)(conv2)
+    pool1 = keras.layers.MaxPooling2D(pool_size=(2, 2))(drop2)
+
+    conv3 = keras.layers.Convolution2D(
+        64, (5, 5), padding='same', activation='relu')(pool1)
+    drop3 = keras.layers.Dropout(rate=0.3)(conv3)
+    conv4 = keras.layers.Convolution2D(
+        64, (5, 5), padding='same', activation='relu')(drop3)
+    drop4 = keras.layers.Dropout(rate=0.3)(conv4)
+    pool2 = keras.layers.MaxPooling2D(pool_size=(2, 2))(drop4)
+
+    flat = keras.layers.Flatten()(pool2)
+    dense1 = keras.layers.Dense(200, activation='relu',
+                                kernel_regularizer=l2_reg)(flat)
+    drop5 = keras.layers.Dropout(rate=0.5)(dense1)
+    output = keras.layers.Dense(
+        43, activation='softmax', kernel_regularizer=l2_reg)(drop5)
+    model = keras.models.Model(inputs=inpt, outputs=output)
+
+    # Specify optimizer
+    adam = keras.optimizers.Adam(
+        lr=1e-3, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
+    model.compile(optimizer=adam,
+                  loss='sparse_categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    return model
+
+
+def build_cnn_no_stn():
+    """
+
+    """
+
+    l2_reg = 0.01
+
+    model = Sequential()
+    model.add(Lambda(
+        lambda x: x*2 - 1.,
+        input_shape=(32, 32, 3),
+        output_shape=(32, 32, 3)))
+    model.add(Conv2D(16, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(BatchNormalization())
+    model.add(Conv2D(32, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(BatchNormalization())
+    model.add(Conv2D(64, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(BatchNormalization())
+    model.add(Conv2D(96, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(BatchNormalization())
+    model.add(Conv2D(128, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(BatchNormalization())
+    model.add(Conv2D(192, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(256, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(128, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(BatchNormalization())
+    model.add(Conv2D(64, (5, 5), padding='same',
+                     activation='relu', kernel_regularizer=l2(l2_reg)))
+    model.add(MaxPooling2D(pool_size=(8, 8)))
+    model.add(Flatten())
+    model.add(Dropout(0.6))
+    model.add(Dense(43, activation='softmax'))
+
+    adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
+    model.compile(loss='sparse_categorical_crossentropy',
+                  optimizer=adam, metrics=['accuracy'])
+
+    return model

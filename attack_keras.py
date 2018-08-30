@@ -53,23 +53,48 @@ y_target = np.zeros((n_attack, ))
 y_target[:n_attack//2] = 14
 y_target[n_attack//2:] = 1
 y_target = to_categorical(y_target, nb_classes)
-print(y_target)
+# print(y_target)
 
 # Define input TF placeholder
 x = tf.placeholder(tf.float32, shape=(None, img_rows, img_cols, nchannels))
 y = tf.placeholder(tf.float32, shape=(None, nb_classes))
 
 # Load and set up all models
+pos_2 = (7, 23, 5, 17)
+pos_0 = (7, 24, 15, 27)  # Good for class 0 - 5
 pos_3 = (7, 24, 6, 17)
+
 pos_S = (7, 24, 0, 11)
+pos_T = (7, 23, 8, 17)
+pos_O = (6, 23, 13, 24)
+pos_P = (6, 23, 22, 32)
+
 clf = conv_model_no_color_adjust()
 clf.load_weights("./keras_weights/stn_v5.hdf5")
-get_stn_output = K.function([clf.layers[0].input, K.learning_phase()],
-                            [clf.layers[1].output])
+
+stn_weight = clf.layers[1].get_weights()
 detect_3 = create_simple_cnn(pos_3)
 detect_3.load_weights("./keras_weights/1_3.hdf5")
+detect_0 = create_simple_cnn(pos_0)
+detect_0.load_weights("./keras_weights/0.hdf5")
 detect_S = create_simple_cnn(pos_S)
 detect_S.load_weights("./keras_weights/14_S.hdf5")
+detect_T = create_simple_cnn(pos_T)
+detect_T.load_weights("./keras_weights/14_T.hdf5")
+detect_O = create_simple_cnn(pos_O)
+detect_O.load_weights("./keras_weights/14_O.hdf5")
+detect_P = create_simple_cnn(pos_P)
+detect_P.load_weights("./keras_weights/14_P.hdf5")
+
+check_cnn = True
+if check_cnn:
+    y_test_cat = np.argmax(y_test, axis=1)
+    print(eval_simple_cnn(detect_3, [1], X_test, y_test_cat))
+    print(eval_simple_cnn(detect_0, [0, 1, 2, 3, 4, 5], X_test, y_test_cat))
+    print(eval_simple_cnn(detect_S, [14], X_test, y_test_cat))
+    print(eval_simple_cnn(detect_T, [14], X_test, y_test_cat))
+    print(eval_simple_cnn(detect_O, [14], X_test, y_test_cat))
+    print(eval_simple_cnn(detect_P, [14], X_test, y_test_cat))
 
 wrap_clf = KerasModelWrapper(clf)
 preds = clf(x)
@@ -93,30 +118,31 @@ report.clean_train_clean_eval = acc
 # print('Test accuracy on adversarial examples: %0.4f\n' % acc)
 
 # CarliniWagner attack
-# cw = CarliniWagnerL2(clf, back='tf', sess=sess)
 from lib.white_box_attack import CarliniWagnerL2_WB
 
 ensemble = []
 for i in range(nb_classes):
     nets = []
     if i == 1:
-        nets.append(KerasModelWrapper(detect_3))
+        nets.append(detect_3)
+        nets.append(detect_0)
     elif i == 14:
-        nets.append(KerasModelWrapper(detect_S))
+        nets.append(detect_S)
+        nets.append(detect_T)
+        nets.append(detect_O)
+        nets.append(detect_P)
     ensemble.append(nets)
+
+wrap_ensemble = [[KerasModelWrapper(net) for net in nets] for nets in ensemble]
 print(ensemble)
 
-
-# Untargeted attack
-attack_iterations = 100
-# adv_inputs = X_test[:n_attack]
-# adv_ys = None
-# yname = 'y'
+# Set up CW attack params
+attack_iterations = 200
 cw_params = {'binary_search_steps': 1,
              'max_iterations': attack_iterations,
              'learning_rate': 0.1,
              'batch_size': n_attack,
-             'initial_const': 1e-2,
+             'initial_const': 10,
              'y_target': y_target}
 # cw_params = {'binary_search_steps': 1,
 #              'max_iterations': attack_iterations,
@@ -132,8 +158,7 @@ cw_params = {'binary_search_steps': 1,
 # print('Test accuracy on CW adversarial examples: %0.4f\n' % acc)
 
 # ======================= MY CODE ======================= #
-cw = CarliniWagnerL2_WB(wrap_clf, ensemble=ensemble, back='tf', sess=sess)
-
+cw = CarliniWagnerL2_WB(wrap_clf, ensemble=wrap_ensemble, back='tf', sess=sess)
 adv = cw.generate_np(X_atk, **cw_params)
 # print(adv)
 
@@ -160,24 +185,36 @@ print("Correct classification by clf & detect_3: ", n_correct_3)
 print("Correct classification by clf & detect_S: ", n_correct_S)
 
 # Evaluate adv
-pred_clf = clf.predict(adv)
-pred_3 = detect_3.predict(adv)
-pred_S = detect_S.predict(adv)
-n_suc_clf = 0
-n_suc_3 = 0   # Fool to predict as '30'
-n_suc_S = 0
+pred_clf = np.argmax(clf.predict(adv), axis=1)
+pred_ensemble = []
+for i in range(nb_classes):
+    pred_nets = []
+    for net in ensemble[i]:
+        pred_nets.append(np.argmax(net.predict(adv), axis=1))
+    pred_ensemble.append(pred_nets)
 
+n_suc_clf = 0
+n_suc_1 = 0
+n_suc_14 = 0
 for i in range(n_attack):
     if i < n_attack//2:
-        if np.argmax(pred_clf[i]) == 14:
+        if pred_clf[i] == 14:
             n_suc_clf += 1
-            if np.argmax(pred_S[i]) == 1:
-                n_suc_S += 1
+            pred_ens_x = []
+            for pred_net in pred_ensemble[14]:
+                pred_ens_x.append(pred_net[i])
+            if 0 not in pred_ens_x:
+                n_suc_14 += 1
+            print(pred_ens_x)
     else:
-        if np.argmax(pred_clf[i]) == 1:
+        if pred_clf[i] == 1:
             n_suc_clf += 1
-            if np.argmax(pred_3[i]) == 1:
-                n_suc_3 += 1
+            pred_ens_x = []
+            for pred_net in pred_ensemble[1]:
+                pred_ens_x.append(pred_net[i])
+            if 0 not in pred_ens_x:
+                n_suc_1 += 1
+# print(pred_ensemble)
 
 # Eval untargeted
 # for i in range(n_attack):
@@ -194,10 +231,8 @@ for i in range(n_attack):
 
 print("\n\n==========================================\n\n")
 print("Successful attack only on clf: ", n_suc_clf)
-print("Successful attack on clf & detect_3: ", n_suc_3)
-print("Successful attack on clf & detect_S: ", n_suc_S)
-
-print(np.sum(X_atk - adv))
+print("Successful attack on clf & detect_3: ", n_suc_1)
+print("Successful attack on clf & detect_S: ", n_suc_14)
 
 # batch_size = 1,
 # confidence = 0,
