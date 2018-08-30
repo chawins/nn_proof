@@ -86,7 +86,7 @@ detect_O.load_weights("./keras_weights/14_O.hdf5")
 detect_P = create_simple_cnn(pos_P)
 detect_P.load_weights("./keras_weights/14_P.hdf5")
 
-check_cnn = False
+check_cnn = True
 if check_cnn:
     y_test_cat = np.argmax(y_test, axis=1)
     print(eval_simple_cnn(detect_3, [1], X_test, y_test_cat))
@@ -138,11 +138,11 @@ print(ensemble)
 
 # Set up CW attack params
 attack_iterations = 200
-cw_params = {'binary_search_steps': 3,
+cw_params = {'binary_search_steps': 1,
              'max_iterations': attack_iterations,
              'learning_rate': 0.1,
              'batch_size': n_attack,
-             'initial_const': 10,
+             'initial_const': 15,
              'y_target': y_target}
 # cw_params = {'binary_search_steps': 1,
 #              'max_iterations': attack_iterations,
@@ -205,6 +205,7 @@ for i in range(n_attack):
                 pred_ens_x.append(pred_net[i])
             if 0 not in pred_ens_x:
                 n_suc_14 += 1
+            print(pred_ens_x)
     else:
         if pred_clf[i] == 1:
             n_suc_clf += 1
