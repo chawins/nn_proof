@@ -256,7 +256,6 @@ class CarliniWagnerL2_WB_TF(object):
         max_diff = tf.reduce_max(diff, axis=1)
         # Add confidence margin and clip at zero
         ensemble_loss = tf.maximum(ZERO(), max_diff + self.CONFIDENCE)
-        # The objective function only includes max(clf_loss, any_ensemble_loss)
         loss1 = tf.maximum(loss1, tf.squeeze(ensemble_loss))
         self.loss1 = reduce_sum(self.const * loss1)
         self.loss = self.loss1 + self.loss2
@@ -403,6 +402,10 @@ class CarliniWagnerL2_WB_TF(object):
                                    "l2={:.3g} f={:.3g}").format(
                                        iteration, self.MAX_ITERATIONS, l,
                                        np.mean(l2s), np.mean(scores)))
+
+                    # # DEBUG
+                    # ensemble_out = self.sess.run([self.ensemble_out])
+                    # _logger.debug(ensemble_out)
 
                 # check if we should abort search if we're getting nowhere.
                 if self.ABORT_EARLY and \

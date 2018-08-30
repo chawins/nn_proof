@@ -60,7 +60,7 @@ x = tf.placeholder(tf.float32, shape=(None, img_rows, img_cols, nchannels))
 y = tf.placeholder(tf.float32, shape=(None, nb_classes))
 
 # Load and set up all models
-# from stn.conv_model import build_cnn_no_stn
+from stn.conv_model import build_cnn_no_stn
 # clf = build_cnn_no_stn()
 # clf.load_weights("./keras_weights/cnn_v4.hdf5")
 clf = conv_model_no_color_adjust()

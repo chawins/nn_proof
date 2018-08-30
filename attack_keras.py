@@ -86,7 +86,7 @@ detect_O.load_weights("./keras_weights/14_O.hdf5")
 detect_P = create_simple_cnn(pos_P)
 detect_P.load_weights("./keras_weights/14_P.hdf5")
 
-check_cnn = False
+check_cnn = True
 if check_cnn:
     y_test_cat = np.argmax(y_test, axis=1)
     print(eval_simple_cnn(detect_3, [1], X_test, y_test_cat))
@@ -134,11 +134,10 @@ for i in range(nb_classes):
     ensemble.append(nets)
 
 wrap_ensemble = [[KerasModelWrapper(net) for net in nets] for nets in ensemble]
-print(ensemble)
 
 # Set up CW attack params
 attack_iterations = 200
-cw_params = {'binary_search_steps': 3,
+cw_params = {'binary_search_steps': 1,
              'max_iterations': attack_iterations,
              'learning_rate': 0.1,
              'batch_size': n_attack,
@@ -160,7 +159,6 @@ cw_params = {'binary_search_steps': 3,
 # ======================= MY CODE ======================= #
 cw = CarliniWagnerL2_WB(wrap_clf, ensemble=wrap_ensemble, back='tf', sess=sess)
 adv = cw.generate_np(X_atk, **cw_params)
-# print(adv)
 
 # Evaluate clean samples
 pred_clf = clf.predict(X_atk)
