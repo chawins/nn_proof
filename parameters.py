@@ -56,7 +56,7 @@ L2_LAMBDA = 0.0001                          # Lambda for l2 regularization
 # Path to saved weights
 WEIGTHS_PATH = "./keras_weights/dave_rgb.best.h5"
 # Path to directory containing dataset
-DATA_DIR = "./input_data/"
+DATA_DIR = "/data/"
 
 INPUT_SHAPE = (1, HEIGHT, WIDTH, N_CHANNEL)  # Input shape of model
 IMG_SHAPE = (HEIGHT, WIDTH, N_CHANNEL)
