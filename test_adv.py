@@ -201,14 +201,15 @@ pgd_params = {'eps': 0.3,
 # pgd = MadryEtAl(wrap_model, sess=sess)
 pgd = MadryEtAl(model, sess=sess)
 x_adv = pgd.generate(x, **pgd_params)
-x, y, x_adv = tf.stop_gradient(x), tf.stop_gradient(y), tf.stop_gradient(x_adv)
+y, x_adv = tf.stop_gradient(y), tf.stop_gradient(x_adv)
 # logits_adv = wrap_model.get_logits(x_adv)
 logits_adv = model.get_logits(x_adv)
 loss_adv = tf.nn.softmax_cross_entropy_with_logits_v2(
     labels=y, logits=logits_adv)
 loss_adv = tf.reduce_sum(loss_adv)
 y_adv = tf.argmax(logits_adv, axis=1)
-acc_adv = tf.reduce_sum(tf.equal(y_adv, tf.argmax(y, axis=1)))
+acc_adv = tf.reduce_sum(
+    tf.cast(tf.equal(y_adv, tf.argmax(y, axis=1)), tf.int32))
 
 # Get loss on clean samples
 logits_clean = model.get_logits(x)
@@ -216,7 +217,8 @@ loss_clean = tf.nn.softmax_cross_entropy_with_logits_v2(
     labels=y, logits=logits_clean)
 loss_clean = tf.reduce_sum(loss_clean)
 y_pred = tf.argmax(logits_clean, axis=1)
-acc_clean = tf.reduce_sum(tf.equal(y_pred, tf.argmax(y, axis=1)))
+acc_clean = tf.reduce_sum(
+    tf.cast(tf.equal(y_pred, tf.argmax(y, axis=1)), tf.int32))
 # Since we are not training on clean loss, we stop the gradient
 loss_clean = tf.stop_gradient(loss_clean)
 
@@ -239,9 +241,9 @@ def eval_cleverhans_clean(X_np, y_np, batch_size=128):
         start = i*batch_size
         end = (i + 1)*batch_size
         feed_dict = {x: X_np[start:end], y: y_np[start:end]}
-        y_probs[start:end] = sess.run(model.get_probs(x), feed_dict=feed_dict)
+        y_probs[start:end] = sess.run(logits_clean, feed_dict=feed_dict)
         loss += sess.run(loss_clean, feed_dict=feed_dict)
-    y_probs[end:] = sess.run(model.get_probs(x), feed_dict={x: X_np[end:]})
+    y_probs[end:] = sess.run(logits_clean, feed_dict={x: X_np[end:]})
     loss += sess.run(loss_clean, feed_dict={x: X_np[end:], y: y_np[end:]})
     acc = np.sum(np.argmax(y_probs, axis=1) ==
                  np.argmax(y_np, axis=1)) / len(X_np)
@@ -276,8 +278,8 @@ sum_n_clean, sum_n_adv = 0, 0
 # Main training loop
 for step in range(max_num_training_steps):
 
-    if step % 100 == 0:
-        print(step)
+    # if step % 100 == 0:
+    #     print(step)
 
     # ind = np.random.randint(len(X_train), size=batch_size)
     # x_batch, y_batch = X_train[ind], y_train[ind]
@@ -314,7 +316,6 @@ for step in range(max_num_training_steps):
             sum_loss_adv / num_summary_steps, sum_n_adv/num_summary_steps))
         sum_loss_clean, sum_loss_adv = 0., 0.
         sum_n_clean, sum_n_adv = 0, 0
-        # TODO
         # loss, acc = model.evaluate(X_val, np.argmax(y_val, axis=1), verbose=0)
         loss, acc = eval_cleverhans_clean(X_val, y_val)
         log.info("\tVal loss|acc:\t{:.2f}|{:.4f}".format(loss, acc))
