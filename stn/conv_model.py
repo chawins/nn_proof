@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 import keras
 from keras.layers import (Activation, Dense, Dropout, Flatten, Lambda,
-                          MaxPooling2D)
+                          MaxPooling2D, Reshape)
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import Conv2D
 from keras.layers.normalization import BatchNormalization
@@ -382,5 +382,22 @@ def build_cnn_no_stn():
     adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
     model.compile(loss='sparse_categorical_crossentropy',
                   optimizer=adam, metrics=['accuracy'])
+
+    return model
+
+
+def template_match_nn():
+
+    l2_reg = 0.01
+
+    model = Sequential()
+    model.add(Lambda(
+        lambda x: x*2 - 1.,
+        input_shape=(32, 32, 3),
+        output_shape=(32, 32, 3)))
+    model.add(SpatialTransformer(localization_net=locnet(),
+                                 output_size=(32, 32)))
+    adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
+    model.compile(loss='mean_absolute_error', optimizer=adam)
 
     return model

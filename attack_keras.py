@@ -137,7 +137,7 @@ wrap_ensemble = [[KerasModelWrapper(net) for net in nets] for nets in ensemble]
 
 # Set up CW attack params
 attack_iterations = 200
-cw_params = {'binary_search_steps': 1,
+cw_params = {'binary_search_steps': 3,
              'max_iterations': attack_iterations,
              'learning_rate': 0.1,
              'batch_size': n_attack,
@@ -240,3 +240,15 @@ print("Successful attack on clf & detect_S: ", n_suc_14)
 # initial_const = 1e-2,
 # clip_min = 0,
 # clip_max = 1
+
+# Save some images
+import scipy.misc
+
+DIR = './vis/exp3/'
+for i in range(20):
+    scipy.misc.imsave('{}org_{}.png'.format(DIR, i), X_atk[i])
+    scipy.misc.imsave('{}adv_{}.png'.format(DIR, i), adv[i])
+    scipy.misc.imsave('{}org_{}.png'.format(
+        DIR, n_attack//2 + i), X_atk[n_attack//2 + i])
+    scipy.misc.imsave('{}adv_{}.png'.format(
+        DIR, n_attack//2 + i), adv[n_attack//2 + i])

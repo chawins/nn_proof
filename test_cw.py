@@ -61,10 +61,10 @@ y = tf.placeholder(tf.float32, shape=(None, nb_classes))
 
 # Load and set up all models
 from stn.conv_model import build_cnn_no_stn
-# clf = build_cnn_no_stn()
-# clf.load_weights("./keras_weights/cnn_v4.hdf5")
-clf = conv_model_no_color_adjust()
-clf.load_weights("./keras_weights/stn_v5.hdf5")
+clf = build_cnn_no_stn()
+clf.load_weights("./keras_weights/cnn_v4.hdf5")
+# clf = conv_model_no_color_adjust()
+# clf.load_weights("./keras_weights/stn_v5.hdf5")
 
 wrap_clf = KerasModelWrapper(clf)
 preds = clf(x)
@@ -86,20 +86,30 @@ report.clean_train_clean_eval = acc
 # print('Test accuracy on adversarial examples: %0.4f\n' % acc)
 
 # CarliniWagner attack
-attack_iterations = 200
-cw_params = {'binary_search_steps': 1,
-             'max_iterations': attack_iterations,
-             'learning_rate': 0.1,
-             'batch_size': n_attack,
-             'initial_const': 10,
-             'y_target': y_target}
-# cw_params = {'binary_search_steps': 1,
+# attack_iterations = 200
+# cw_params = {'binary_search_steps': 3,
 #              'max_iterations': attack_iterations,
 #              'learning_rate': 0.1,
 #              'batch_size': n_attack,
-#              'initial_const': 10}
-cw = CarliniWagnerL2(wrap_clf, back='tf', sess=sess)
-adv_x = cw.generate_np(X_atk, **cw_params)
+#              'initial_const': 10,
+#              'y_target': y_target}
+# # cw_params = {'binary_search_steps': 1,
+# #              'max_iterations': attack_iterations,
+# #              'learning_rate': 0.1,
+# #              'batch_size': n_attack,
+# #              'initial_const': 10}
+# cw = CarliniWagnerL2(wrap_clf, back='tf', sess=sess)
+# adv = cw.generate_np(X_atk, **cw_params)
+
+from cleverhans.attacks import MadryEtAl
+pgd_params = {'eps': 0.3,
+              'eps_iter': 0.01,
+              'nb_iter': 40,
+              'clip_min': 0.,
+              'clip_max': 1.,
+              'rand_init': True}
+pgd = MadryEtAl(wrap_clf, sess=sess)
+adv = pgd.generate_np(X_atk, **pgd_params)
 
 # adv_x = cw.generate(x, **cw_params)
 # preds_adv = clf(adv_x)
@@ -107,8 +117,20 @@ adv_x = cw.generate_np(X_atk, **cw_params)
 #                  y_test[:n_attack], args={'batch_size': n_attack})
 # print('Test accuracy on CW adversarial examples: %0.4f\n' % acc)
 
-pred = clf.predict(adv_x)
+pred = clf.predict(adv)
 # print(np.sum(np.argmax(pred, axis=1) != np.argmax(y_test[:n_attack], axis=1)))
 # pred_orig = clf.predict(X_atk)
 # print(np.sum(np.argmax(pred, axis=1) != np.argmax(pred_orig, axis=1)))
 print(np.sum(np.argmax(pred, axis=1) == np.argmax(y_target, axis=1)))
+
+# Save some images
+import scipy.misc
+
+# DIR = './vis/exp2/'
+# for i in range(20):
+#     scipy.misc.imsave('{}org_{}.png'.format(DIR, i), X_atk[i])
+#     scipy.misc.imsave('{}adv_{}.png'.format(DIR, i), adv[i])
+#     scipy.misc.imsave('{}org_{}.png'.format(
+#         DIR, n_attack//2 + i), X_atk[n_attack//2 + i])
+#     scipy.misc.imsave('{}adv_{}.png'.format(
+#         DIR, n_attack//2 + i), adv[n_attack//2 + i])

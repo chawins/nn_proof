@@ -1,0 +1,28 @@
+{
+    "_comment": "======== Model Config ========",
+    "model_path": "keras_weights/adv_train_stn",
+
+    "_comment": "======== Dataset information ========",
+    "dataset": "gtsrb",
+
+    "_comment": "======== Training Config ========",
+    "random_seed": 1234,
+    "max_num_training_steps": 100000,
+    "num_output_steps": 1000,
+    "num_summary_steps": 1000,
+    "num_checkpoint_steps": 1000,
+    "training_batch_size": 50,
+
+    "_comment": "======== Evaluation Config =============",
+    "num_eval_examples": 10000,
+    "eval_batch_size": 200,
+    "eval_on_cpu": true,
+
+    "_comment": "======== Adversarial Examples Config ========",
+    "eps": 0.3,
+    "eps_iter": 0.01,
+    "nb_iter": 40,
+    "random_start": true,
+    "loss_func": "xent",
+    "store_adv_path": "attack.npy"
+}

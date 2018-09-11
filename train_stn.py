@@ -25,7 +25,7 @@ batch_size = 128
 epochs = 150
 # model = conv_model()
 model = conv_model_no_color_adjust()
-save_path = "./keras_weights/stn_v8.hdf5"
+save_path = "./keras_weights/temp.hdf5"
 
 checkpointer = ModelCheckpoint(
     filepath=save_path, verbose=1, save_best_only=True,
