@@ -11,6 +11,7 @@ tmp*
 data/
 *~
 keras_weights/
+vis/
 
 # OS generated files #
 ######################
