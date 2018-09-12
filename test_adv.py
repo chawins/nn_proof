@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import time
+import pickle
 from keras import backend as K
 
 from cleverhans.attacks import CarliniWagnerL2, FastGradientMethod, MadryEtAl
@@ -123,6 +124,19 @@ if K.image_dim_ordering() != 'tf':
 sess = tf.Session()
 K.set_session(sess)
 
+# set_log_level(logging.DEBUG)
+
+with open('config.json') as config_file:
+    config = json.load(config_file)
+dataset = config['dataset']
+weights_path = config['weights_path']
+model_name = config['model_name']
+max_num_training_steps = config['max_num_training_steps']
+num_output_steps = config['num_output_steps']
+num_summary_steps = config['num_summary_steps']
+num_checkpoint_steps = config['num_checkpoint_steps']
+batch_size = config['training_batch_size']
+
 # Get TF logger
 log = logging.getLogger('test_adv')
 log.setLevel(logging.DEBUG)
@@ -130,22 +144,10 @@ log.setLevel(logging.DEBUG)
 formatter = logging.Formatter(
     '[%(levelname)s %(asctime)s %(name)s] %(message)s')
 # Create file handler
-fh = logging.FileHandler('test_adv.log', mode='w')
+fh = logging.FileHandler(model_name + ".log", mode='w')
 fh.setLevel(logging.DEBUG)
 fh.setFormatter(formatter)
 log.addHandler(fh)
-
-# set_log_level(logging.DEBUG)
-
-with open('config.json') as config_file:
-    config = json.load(config_file)
-dataset = config['dataset']
-model_path = config['model_path']
-max_num_training_steps = config['max_num_training_steps']
-num_output_steps = config['num_output_steps']
-num_summary_steps = config['num_summary_steps']
-num_checkpoint_steps = config['num_checkpoint_steps']
-batch_size = config['training_batch_size']
 
 if dataset == 'gtsrb':
     # Load GTSRB dataset
@@ -192,9 +194,9 @@ elif dataset == 'mnist':
 
 # Set up adversarial example generation using cleverhans
 # wrap_model = KerasModelWrapper(model)
-pgd_params = {'eps': 0.3,
-              'eps_iter': 0.01,
-              'nb_iter': 40,
+pgd_params = {'eps': config['eps'],
+              'eps_iter': config['eps_iter'],
+              'nb_iter': config['nb_iter'],
               'clip_min': 0.,
               'clip_max': 1.,
               'rand_init': True}
@@ -310,15 +312,16 @@ for step in range(max_num_training_steps):
         # loss, acc = model.evaluate(
         #     X_train, np.argmax(y_train, axis=1), verbose=0)
         # loss, acc = eval_cleverhans_clean(X_train, y_train)
-        log.info("\tTrain loss|acc:\t{:.2f}|{:.4f}".format(
-            sum_loss_clean/num_summary_steps, sum_n_clean/num_summary_steps))
+        n_samples = float(num_summary_steps*batch_size)
+        log.info("\tTrain loss|acc:\t\t{:.2f}|{:.4f}".format(
+            sum_loss_clean/n_samples, sum_n_clean/n_samples))
         log.info("\tAdv train loss|acc:\t{:.2f}|{:.4f}".format(
-            sum_loss_adv / num_summary_steps, sum_n_adv/num_summary_steps))
+            sum_loss_adv/n_samples, sum_n_adv/n_samples))
         sum_loss_clean, sum_loss_adv = 0., 0.
         sum_n_clean, sum_n_adv = 0, 0
         # loss, acc = model.evaluate(X_val, np.argmax(y_val, axis=1), verbose=0)
         loss, acc = eval_cleverhans_clean(X_val, y_val)
-        log.info("\tVal loss|acc:\t{:.2f}|{:.4f}".format(loss, acc))
+        log.info("\tVal loss|acc:\t\t{:.2f}|{:.4f}".format(loss, acc))
 
         # X_adv = np.zeros_like(X_val)
         # for i in range(len(X_val) // batch_size):
@@ -336,9 +339,9 @@ for step in range(max_num_training_steps):
     if step % num_checkpoint_steps == 0:
         # loss, acc = model.evaluate(X_val, np.argmax(y_val, axis=1), verbose=0)
         loss, acc = eval_cleverhans_clean(X_val, y_val)
-        model_name = "{}_step{}_loss{:.2f}_acc{:.4f}.p".format(
-            model_path, step, loss, acc)
+        model_path = "{}{}_step{}_loss{:.2f}_acc{:.4f}.p".format(
+            weights_path, model_name, step, loss, acc)
         w = model.get_params()
         weights = sess.run(w)
-        with open(model_name, "wb") as f:
+        with open(model_path, "wb") as f:
             pickle.dump(weights, f, protocol=pickle.HIGHEST_PROTOCOL)

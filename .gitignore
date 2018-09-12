@@ -10,7 +10,7 @@ tmp/
 tmp*
 data/
 *~
-# keras_weights/
+keras_weights/
 vis/
 
 # OS generated files #

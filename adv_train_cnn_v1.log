@@ -1,0 +1,12 @@
+[INFO 2018-09-12 23:05:29,395 test_adv] STEP: 0
+[INFO 2018-09-12 23:05:29,395 test_adv] 	Elapsed time:	2s
+[INFO 2018-09-12 23:05:29,396 test_adv] 	Train loss|acc:		0.00|0.0000
+[INFO 2018-09-12 23:05:29,396 test_adv] 	Adv train loss|acc:	0.00|0.0000
+[INFO 2018-09-12 23:05:31,840 test_adv] 	Val loss|acc:		3.76|0.0476
+[INFO 2018-09-12 23:06:11,973 test_adv] 	Adv val loss|acc:	3.76|0.0662
+[INFO 2018-09-12 23:17:10,143 test_adv] STEP: 1000
+[INFO 2018-09-12 23:17:10,143 test_adv] 	Elapsed time:	701s
+[INFO 2018-09-12 23:17:10,143 test_adv] 	Train loss|acc:		1.36|0.6351
+[INFO 2018-09-12 23:17:10,143 test_adv] 	Adv train loss|acc:	1.93|0.4223
+[INFO 2018-09-12 23:17:12,443 test_adv] 	Val loss|acc:		0.93|0.7562
+[INFO 2018-09-12 23:17:53,074 test_adv] 	Adv val loss|acc:	1.74|0.4626
