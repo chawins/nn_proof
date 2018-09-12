@@ -41,28 +41,6 @@ def build_mnist():
     return model
 
 
-# def build_gtsrb():
-
-#     from keras.layers import (Activation, Dense, Dropout, Flatten, Lambda,
-#                               MaxPooling2D, Reshape)
-
-#     model = Sequential()
-#     model.add(Reshape((32, 32, 3), input_shape=(32, 32, 3)))
-#     model.add(Conv2D(32, (5, 5), padding='same', activation='relu'))
-#     model.add(MaxPooling2D(pool_size=(2, 2)))
-#     model.add(Conv2D(64, (5, 5), padding='same', activation='relu'))
-#     model.add(MaxPooling2D(pool_size=(2, 2)))
-#     model.add(Flatten())
-#     model.add(Dense(1024, activation='relu'))
-#     model.add(Dense(43, activation='softmax'))
-
-#     adam = Adam(lr=1e-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
-#     model.compile(loss='sparse_categorical_crossentropy',
-#                   optimizer=adam, metrics=['accuracy'])
-
-#     return model
-
-
 def build_gtsrb():
 
     # from keras.layers import (Activation, Dense, Dropout, Flatten, Lambda,
