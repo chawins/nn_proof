@@ -84,8 +84,42 @@ def build_gtsrb():
     return model
 
 
+def eval_cleverhans_clean(X_np, y_np, batch_size=128):
+    y_probs = np.zeros_like(y_np)
+    loss = 0.
+    for i in range(len(X_np) // batch_size):
+        start = i*batch_size
+        end = (i + 1)*batch_size
+        feed_dict = {x: X_np[start:end], y: y_np[start:end]}
+        y_probs[start:end] = sess.run(logits_clean, feed_dict=feed_dict)
+        loss += sess.run(loss_clean, feed_dict=feed_dict)
+    y_probs[end:] = sess.run(logits_clean, feed_dict={x: X_np[end:]})
+    loss += sess.run(loss_clean, feed_dict={x: X_np[end:], y: y_np[end:]})
+    acc = np.sum(np.argmax(y_probs, axis=1) ==
+                 np.argmax(y_np, axis=1)) / len(X_np)
+    loss /= len(X_np)
+    return loss, acc
+
+
+def eval_cleverhans_adv(X_np, y_np, batch_size=128):
+    y_probs = np.zeros_like(y_np)
+    loss = 0.
+    for i in range(len(X_np) // batch_size):
+        start = i*batch_size
+        end = (i + 1)*batch_size
+        feed_dict = {x: X_np[start:end], y: y_np[start:end]}
+        y_probs[start:end] = sess.run(logits_adv, feed_dict=feed_dict)
+        loss += sess.run(loss_adv, feed_dict=feed_dict)
+    y_probs[end:] = sess.run(logits_adv, feed_dict={x: X_np[end:]})
+    loss += sess.run(loss_adv, feed_dict={x: X_np[end:], y: y_np[end:]})
+    acc = np.sum(np.argmax(y_probs, axis=1) ==
+                 np.argmax(y_np, axis=1)) / len(X_np)
+    loss /= len(X_np)
+    return loss, acc
+
 # Object used to keep track of (and return) key accuracies
 # report = AccuracyReport()
+
 
 # Set TF random seed to improve reproducibility
 tf.set_random_seed(1234)
@@ -141,8 +175,8 @@ if dataset == 'gtsrb':
     # model = build_gtsrb()
     # model = build_cnn_no_stn()
     # model = conv_model_no_color_adjust()
-    from adv_model import CnnGtsrb
-    model = CnnGtsrb('model1', nb_classes)
+    from adv_model import *
+    model = CnnGtsrbV1('CnnGtsrbV1', nb_classes)
     # model.summary()
 
     # Define input TF placeholder
@@ -204,48 +238,6 @@ loss_clean = tf.stop_gradient(loss_clean)
 
 # Specify optimizer
 train_step = tf.train.AdamOptimizer(1e-4).minimize(loss_adv)
-
-# from tensorflow.contrib.memory_stats.python.ops.memory_stats_ops import BytesInUse
-# with tf.device('/gpu:0'):  # Replace with device you are interested in
-#     bytes_in_use = BytesInUse()
-#     print(sess.run(bytes_in_use))
-# with tf.device('/gpu:1'):  # Replace with device you are interested in
-#     bytes_in_use = BytesInUse()
-#     print(sess.run(bytes_in_use))
-
-
-def eval_cleverhans_clean(X_np, y_np, batch_size=128):
-    y_probs = np.zeros_like(y_np)
-    loss = 0.
-    for i in range(len(X_np) // batch_size):
-        start = i*batch_size
-        end = (i + 1)*batch_size
-        feed_dict = {x: X_np[start:end], y: y_np[start:end]}
-        y_probs[start:end] = sess.run(logits_clean, feed_dict=feed_dict)
-        loss += sess.run(loss_clean, feed_dict=feed_dict)
-    y_probs[end:] = sess.run(logits_clean, feed_dict={x: X_np[end:]})
-    loss += sess.run(loss_clean, feed_dict={x: X_np[end:], y: y_np[end:]})
-    acc = np.sum(np.argmax(y_probs, axis=1) ==
-                 np.argmax(y_np, axis=1)) / len(X_np)
-    loss /= len(X_np)
-    return loss, acc
-
-
-def eval_cleverhans_adv(X_np, y_np, batch_size=128):
-    y_probs = np.zeros_like(y_np)
-    loss = 0.
-    for i in range(len(X_np) // batch_size):
-        start = i*batch_size
-        end = (i + 1)*batch_size
-        feed_dict = {x: X_np[start:end], y: y_np[start:end]}
-        y_probs[start:end] = sess.run(logits_adv, feed_dict=feed_dict)
-        loss += sess.run(loss_adv, feed_dict=feed_dict)
-    y_probs[end:] = sess.run(logits_adv, feed_dict={x: X_np[end:]})
-    loss += sess.run(loss_adv, feed_dict={x: X_np[end:], y: y_np[end:]})
-    acc = np.sum(np.argmax(y_probs, axis=1) ==
-                 np.argmax(y_np, axis=1)) / len(X_np)
-    loss /= len(X_np)
-    return loss, acc
 
 
 # Initialize variables
