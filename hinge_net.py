@@ -6,86 +6,33 @@ from keras.layers import (Activation, Dense, Flatten, Lambda, Conv2D, Input,
                           MaxPooling2D, Reshape, Concatenate, Cropping2D, Add,
                           Dropout)
 
-from stn.spatial_transformer import SpatialTransformer
-from stn.conv_model import locnet_v3
 
+class HingeNet():
 
-class FeatNet():
-
-    def __init__(self, scope, input_shape, output_shape, crop_pos, 
-                 learning_rate=1e-3, stn_weight=None, load_model=True,
-                 save_path="model/featnet.h5"):
+    def __init__(self, scope, input_shape, output_shape, learning_rate=1e-3, 
+                 load_model=True, save_path="model/hingenet.h5"):
 
         self.scope = scope
         self.save_path = save_path
         self.output_shape = output_shape
-        self.crop_pos = crop_pos
-        self.n_feats = len(crop_pos)
         self.height, self.width, self.channel = input_shape
-        self.stn_weight = stn_weight
 
         # Create placeholders
         self.x = tf.placeholder(tf.float32, [None, ] + input_shape, name="x")
         self.y = tf.placeholder(tf.float32, [None, ] + output_shape, name="y")
-        
+
         # Build model
-        self.feat_scores = []
         with tf.variable_scope(self.scope, reuse=tf.AUTO_REUSE):
             
-            inpt = Input(shape=(32, 32, 3))
-            rescale1 = Lambda(lambda x: x*2 - 1., output_shape=(32, 32, 3))(inpt)
-            stn = SpatialTransformer(localization_net=locnet_v3(), 
-                                     output_size=(32, 32),
-                                     trainable=False,
-                                     weights=self.stn_weight)(rescale1)
-            rescale2 = Lambda(lambda x: x*.5 + .5, output_shape=(32, 32, 3))(stn)
-
-            for pos in self.crop_pos:
-                top, bot, left, right = pos
-                crop = Cropping2D(((top, self.height - bot), 
-                                   (left, self.width - right)))(rescale2)
-                conv1 = Conv2D(16, (3, 3), activation="relu")(crop)
-                conv2 = Conv2D(32, (3, 3), activation="relu")(conv1)
-                conv3 = Conv2D(64, (3, 3), activation="relu")(conv2)
-                flat = Flatten()(conv3)
-                dense1 = Dense(128, activation="relu")(flat)
-                drop1 = Dropout(0.25)(dense1)
-                dense2 = Dense(32, activation="relu")(drop1)
-                drop2 = Dropout(0.5)(dense2)
-                dense3 = Dense(1, activation="sigmoid")(drop2)
-                self.feat_scores.append(dense3)
-
-            # Define loss
-            # 1. Only final feature score
-            # with tf.variable_scope("final_layer"):
-            #     self.output = Dense(1, activation="sigmoid")(concat)
-            # self.loss = tf.losses.mean_squared_error(self.y, self.output)
-
-            # 2. Use naive non-negative constraint on final layer
-            # with tf.variable_scope("final_layer"):
-            #     self.output = Dense(1, activation="sigmoid", 
-            #         kernel_regularizer=keras.regularizers.l2(0.01), 
-            #         kernel_constraint=keras.constraints.non_neg())(concat)
-            # self.loss = tf.losses.mean_squared_error(self.y, self.output)
-
-            # 3. Penalize negative weights (Lagrangian)
-            # with variable_scope("final_layer"):
-            #     self.output = Dense(1, activation="sigmoid")(concat)
-            # final_layer = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES,2
-            #                                 scope="featnet/final_layer")
-            # tf.minimum()
-
-            # 4. Use softmax on input to last layer
-
-            # 5. Fix final weight to ensure that all features contribute to 
-            # the decision
-            # self.output = tf.reduce_sum(concat, axis=1, keepdims=True) / self.n_feats)
-            # self.loss = tf.losses.mean_squared_error(self.y, self.output)
-
-            # 6. Fix weights + hinge loss, SCORE_THRES = 0.75 (7. SCORE_THRES = 1.)
-            SCORE_THRES = 1.
-            # output = tf.reduce_sum(concat, axis=1, keepdims=True)
-            output = Add()(self.feat_scores)
+            inpt = Input(shape=(28, 28, 1))
+            conv1 = Conv2D(32, kernel_size=(3, 3), activation='relu')(inpt)
+            conv2 = Conv2D(64, (3, 3), activation='relu')(conv1)
+            mp1 = MaxPooling2D(pool_size=(2, 2))(conv2)
+            drop1 = Dropout(0.25)(mp1)
+            flat = Flatten()(drop1)
+            dense1 = Dense(128, activation='relu')(flat)
+            drop2 = Dropout(0.5)
+            Dense(output_shape[0], activation='softmax')
 
             self.model = keras.models.Model(inputs=inpt, outputs=output)
             self.output = self.model(self.x)

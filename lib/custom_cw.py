@@ -7,6 +7,7 @@ from cleverhans.compat import (reduce_any, reduce_max, reduce_mean, reduce_min,
 from cleverhans.model import CallableModelWrapper, Model
 from parameters import *
 
+CONF = 1e-2
 
 class CustomCarliniWagnerL2(Attack):
     """
@@ -169,8 +170,6 @@ class CustomCarliniWagnerL2_TF(object):
         self.timg = tf.Variable(np.zeros(shape), dtype=tf_dtype, name='timg')
         self.tlab = tf.Variable(
             np.zeros((batch_size, num_labels)), dtype=tf_dtype, name='tlab')
-        # self.tlab2 = tf.Variable(
-        #     np.zeros((batch_size, 1)), dtype=tf_dtype, name='tlab2')
         self.const = tf.Variable(
             np.zeros(batch_size), dtype=tf_dtype, name='const')
 
@@ -178,8 +177,6 @@ class CustomCarliniWagnerL2_TF(object):
         self.assign_timg = tf.placeholder(tf_dtype, shape, name='assign_timg')
         self.assign_tlab = tf.placeholder(
             tf_dtype, (batch_size, num_labels), name='assign_tlab')
-        # self.assign_tlab2 = tf.placeholder(
-        #     tf_dtype, (batch_size, 1), name='assign_tlab2')
         self.assign_const = tf.placeholder(
             tf_dtype, [batch_size], name='assign_const')
 
@@ -209,12 +206,9 @@ class CustomCarliniWagnerL2_TF(object):
             loss1 = tf.maximum(ZERO(), real - other + self.CONFIDENCE)
 
         # Model 2
+        output = model2.get_output(self.newimg)
         # TODO
-        # output = model2.get_logits(self.newimg)
-        output = model2.output
-        # self.loss1_2 = tf.maximum(ZERO(), self.tlab2 - output)
-        # TODO
-        self.loss1_2 = tf.maximum(ZERO(), thres + 1e-2 - output)
+        self.loss1_2 = tf.maximum(ZERO(), thres + CONF - output)
 
         # Sum up the losses
         self.loss1 = self.const * (loss1 + self.loss1_2)
@@ -231,7 +225,6 @@ class CustomCarliniWagnerL2_TF(object):
         self.setup = []
         self.setup.append(self.timg.assign(self.assign_timg))
         self.setup.append(self.tlab.assign(self.assign_tlab))
-        # self.setup.append(self.tlab2.assign(self.assign_tlab2))
         self.setup.append(self.const.assign(self.assign_const))
 
         self.init = tf.variables_initializer(var_list=[modifier] + new_vars)
@@ -319,11 +312,9 @@ class CustomCarliniWagnerL2_TF(object):
             prev = 1e6
             for iteration in range(self.MAX_ITERATIONS):
                 # perform the attack
-                # TODO
                 _, l, l2s, scores, nimg, l1s = self.sess.run([
                     self.train, self.loss, self.l2dist, self.output,
-                    self.newimg, self.loss1_2], 
-                    feed_dict={self.model2.x: batch})
+                    self.newimg, self.loss1_2])
 
                 if iteration % ((self.MAX_ITERATIONS // 10) or 1) == 0:
                     _logger.debug(("    Iteration {} of {}: loss={:.3g} " +
@@ -343,10 +334,10 @@ class CustomCarliniWagnerL2_TF(object):
                 # adjust the best result found so far
                 for e, (l2, l1, sc, ii) in enumerate(zip(l2s, l1s, scores, nimg)):
                     lab = np.argmax(batchlab[e])
-                    if l2 < bestl2[e] and compare(sc, lab) and l1 > self.thres:
+                    if l2 < bestl2[e] and compare(sc, lab) and l1 < CONF:
                         bestl2[e] = l2
                         bestscore[e] = np.argmax(sc)
-                    if l2 < o_bestl2[e] and compare(sc, lab) and l1 > self.thres:
+                    if l2 < o_bestl2[e] and compare(sc, lab) and l1 < CONF:
                         o_bestl2[e] = l2
                         o_bestscore[e] = np.argmax(sc)
                         o_bestattack[e] = ii

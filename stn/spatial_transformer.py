@@ -1,4 +1,5 @@
 from keras.layers.core import Layer
+# from tensorflow.keras.layers import Layer
 import tensorflow as tf
 import numpy as np
 
