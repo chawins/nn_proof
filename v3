@@ -1,0 +1,741 @@
+2018-10-18 09:19:47.761598: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-10-18 09:19:49.060680: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1405] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:4c:00.0
+totalMemory: 10.91GiB freeMemory: 10.76GiB
+2018-10-18 09:19:49.060719: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1484] Adding visible gpu devices: 0
+2018-10-18 09:19:49.299905: I tensorflow/core/common_runtime/gpu/gpu_device.cc:965] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-10-18 09:19:49.299954: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971]      0 
+2018-10-18 09:19:49.299963: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] 0:   N 
+2018-10-18 09:19:49.300180: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1097] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10403 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:4c:00.0, compute capability: 6.1)
+Using TensorFlow backend.
+[INFO 2018-10-18 09:21:15,832 cleverhans] Constructing new graph for attack CarliniWagnerL2
+============= EPOCH: 0 =============
+STEP: 0 	Loss: 1000.0480
+STEP: 50 	Loss: 789.1432
+STEP: 100 	Loss: 188.0731
+STEP: 150 	Loss: 161.0795
+STEP: 200 	Loss: 177.0086
+STEP: 250 	Loss: 69.1422
+STEP: 300 	Loss: 59.7176
+STEP: 350 	Loss: 45.1095
+STEP: 400 	Loss: 76.3863
+Train Acc|Loss:	0.9717|75.2411
+Val Acc|Loss:	0.9708|74.2242
+============= EPOCH: 1 =============
+STEP: 0 	Loss: 70.8885
+STEP: 50 	Loss: 59.7681
+STEP: 100 	Loss: 67.4991
+STEP: 150 	Loss: 47.6854
+STEP: 200 	Loss: 62.7540
+STEP: 250 	Loss: 45.9269
+STEP: 300 	Loss: 77.7413
+STEP: 350 	Loss: 42.4952
+STEP: 400 	Loss: 50.0006
+Train Acc|Loss:	0.9857|39.0809
+Val Acc|Loss:	0.9805|47.6276
+============= EPOCH: 2 =============
+STEP: 0 	Loss: 31.0840
+STEP: 50 	Loss: 45.6120
+STEP: 100 	Loss: 67.5837
+STEP: 150 	Loss: 45.8932
+STEP: 200 	Loss: 18.4031
+STEP: 250 	Loss: 16.3609
+STEP: 300 	Loss: 62.7102
+STEP: 350 	Loss: 14.8417
+STEP: 400 	Loss: 53.4670
+Train Acc|Loss:	0.9903|27.1038
+Val Acc|Loss:	0.9842|42.7365
+============= EPOCH: 3 =============
+STEP: 0 	Loss: 0.0000
+STEP: 50 	Loss: 43.3835
+STEP: 100 	Loss: 25.6033
+STEP: 150 	Loss: 12.5081
+STEP: 200 	Loss: 65.4237
+STEP: 250 	Loss: 33.3265
+STEP: 300 	Loss: 29.5259
+STEP: 350 	Loss: 32.1871
+STEP: 400 	Loss: 10.2917
+Train Acc|Loss:	0.9915|23.6888
+Val Acc|Loss:	0.9845|40.7063
+============= EPOCH: 4 =============
+STEP: 0 	Loss: 30.7709
+STEP: 50 	Loss: 86.5454
+STEP: 100 	Loss: 42.5814
+STEP: 150 	Loss: 46.7336
+STEP: 200 	Loss: 52.4318
+STEP: 250 	Loss: 61.6412
+STEP: 300 	Loss: 0.0000
+STEP: 350 	Loss: 41.3263
+STEP: 400 	Loss: 25.7906
+Train Acc|Loss:	0.9933|17.8941
+Val Acc|Loss:	0.9873|35.1099
+============= EPOCH: 5 =============
+STEP: 0 	Loss: 39.5697
+STEP: 50 	Loss: 5.2445
+STEP: 100 	Loss: 37.8476
+STEP: 150 	Loss: 45.9981
+STEP: 200 	Loss: 32.2197
+STEP: 250 	Loss: 20.4389
+STEP: 300 	Loss: 0.2414
+STEP: 350 	Loss: 26.8573
+STEP: 400 	Loss: 60.7449
+Train Acc|Loss:	0.9954|13.8797
+Val Acc|Loss:	0.9858|37.2032
+============= EPOCH: 6 =============
+STEP: 0 	Loss: 0.0000
+STEP: 50 	Loss: 14.4610
+STEP: 100 	Loss: 3.7900
+STEP: 150 	Loss: 8.4424
+STEP: 200 	Loss: 55.7231
+STEP: 250 	Loss: 8.3311
+STEP: 300 	Loss: 10.9129
+STEP: 350 	Loss: 0.0000
+STEP: 400 	Loss: 3.9135
+Train Acc|Loss:	0.9974|7.6374
+Val Acc|Loss:	0.9893|29.8300
+============= EPOCH: 7 =============
+STEP: 0 	Loss: 2.7248
+STEP: 50 	Loss: 4.8748
+STEP: 100 	Loss: 2.8669
+STEP: 150 	Loss: 15.6285
+STEP: 200 	Loss: 36.6513
+STEP: 250 	Loss: 21.6743
+STEP: 300 	Loss: 15.6676
+STEP: 350 	Loss: 0.0000
+STEP: 400 	Loss: 7.4097
+Train Acc|Loss:	0.9964|10.0956
+Val Acc|Loss:	0.9872|36.6843
+============= EPOCH: 8 =============
+STEP: 0 	Loss: 2.5869
+STEP: 50 	Loss: 0.0000
+STEP: 100 	Loss: 19.8829
+STEP: 150 	Loss: 6.6833
+STEP: 200 	Loss: 10.3230
+STEP: 250 	Loss: 0.0000
+STEP: 300 	Loss: 0.0000
+STEP: 350 	Loss: 5.0862
+STEP: 400 	Loss: 0.0000
+Train Acc|Loss:	0.9955|12.6999
+Val Acc|Loss:	0.9853|44.5506
+============= EPOCH: 9 =============
+STEP: 0 	Loss: 7.6303
+STEP: 50 	Loss: 0.0000
+STEP: 100 	Loss: 12.4722
+STEP: 150 	Loss: 5.0590
+STEP: 200 	Loss: 3.3053
+STEP: 250 	Loss: 5.5289
+STEP: 300 	Loss: 19.8618
+STEP: 350 	Loss: 0.5948
+STEP: 400 	Loss: 0.0000
+Train Acc|Loss:	0.9981|5.2518
+Val Acc|Loss:	0.9892|31.3197
+Weights
+13.30031 83.14722 0.027242003 0.1260288
+215.98352 1561.9426 0.01735964 0.106848024
+194.89282 2768.3662 -0.00977264 0.050476715
+9098.423 256902.39 -0.002185626 0.018501353
+296.50397 3642.4944 -0.003055364 0.067193426
+25.068317 153.65257 -0.0011460993 0.13994038
+Clean accuracy
+(0.9887, 28.418504736328124)
+Gradients
+1557.784953125
+Accuracy on X_atk
+(0.988, 27.11105892944336)
+Attack done
+(1.0, 873.7743046875)
+6.1467032
+2018-10-18 09:21:49.243624: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-10-18 09:21:50.493508: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1405] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:4c:00.0
+totalMemory: 10.91GiB freeMemory: 10.76GiB
+2018-10-18 09:21:50.493548: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1484] Adding visible gpu devices: 0
+2018-10-18 09:21:50.722560: I tensorflow/core/common_runtime/gpu/gpu_device.cc:965] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-10-18 09:21:50.722608: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971]      0 
+2018-10-18 09:21:50.722617: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] 0:   N 
+2018-10-18 09:21:50.722823: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1097] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10403 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:4c:00.0, compute capability: 6.1)
+Using TensorFlow backend.
+[INFO 2018-10-18 09:23:17,777 cleverhans] Constructing new graph for attack CarliniWagnerL2
+============= EPOCH: 0 =============
+STEP: 0 	Loss: 1000.0345
+STEP: 50 	Loss: 722.9200
+STEP: 100 	Loss: 340.2649
+STEP: 150 	Loss: 167.9836
+STEP: 200 	Loss: 141.4023
+STEP: 250 	Loss: 88.3680
+STEP: 300 	Loss: 85.8736
+STEP: 350 	Loss: 92.9566
+STEP: 400 	Loss: 73.4777
+Train Acc|Loss:	0.9735|71.8096
+Val Acc|Loss:	0.9673|85.8799
+============= EPOCH: 1 =============
+STEP: 0 	Loss: 45.1192
+STEP: 50 	Loss: 88.6582
+STEP: 100 	Loss: 56.0241
+STEP: 150 	Loss: 93.0963
+STEP: 200 	Loss: 150.7230
+STEP: 250 	Loss: 95.3737
+STEP: 300 	Loss: 21.6247
+STEP: 350 	Loss: 46.2071
+STEP: 400 	Loss: 60.8837
+Train Acc|Loss:	0.9838|44.1781
+Val Acc|Loss:	0.9778|61.2703
+============= EPOCH: 2 =============
+STEP: 0 	Loss: 14.1021
+STEP: 50 	Loss: 48.0810
+STEP: 100 	Loss: 39.7056
+STEP: 150 	Loss: 19.1854
+STEP: 200 	Loss: 21.6901
+STEP: 250 	Loss: 25.3392
+STEP: 300 	Loss: 33.9675
+STEP: 350 	Loss: 21.3759
+STEP: 400 	Loss: 67.7287
+Train Acc|Loss:	0.9872|35.5697
+Val Acc|Loss:	0.9782|54.0758
+============= EPOCH: 3 =============
+STEP: 0 	Loss: 38.1202
+STEP: 50 	Loss: 59.0065
+STEP: 100 	Loss: 28.6375
+STEP: 150 	Loss: 55.1146
+STEP: 200 	Loss: 52.3328
+STEP: 250 	Loss: 16.9854
+STEP: 300 	Loss: 21.3857
+STEP: 350 	Loss: 13.7301
+STEP: 400 	Loss: 52.0315
+Train Acc|Loss:	0.9895|28.0860
+Val Acc|Loss:	0.9808|49.8130
+============= EPOCH: 4 =============
+STEP: 0 	Loss: 50.2043
+STEP: 50 	Loss: 16.1148
+STEP: 100 	Loss: 25.8457
+STEP: 150 	Loss: 2.0668
+STEP: 200 	Loss: 47.5380
+STEP: 250 	Loss: 18.6051
+STEP: 300 	Loss: 19.7960
+STEP: 350 	Loss: 30.7886
+STEP: 400 	Loss: 44.2958
+Train Acc|Loss:	0.9935|18.5448
+Val Acc|Loss:	0.9847|40.0208
+============= EPOCH: 5 =============
+STEP: 0 	Loss: 29.4105
+STEP: 50 	Loss: 42.5613
+STEP: 100 	Loss: 37.3767
+STEP: 150 	Loss: 25.8822
+STEP: 200 	Loss: 1.0327
+STEP: 250 	Loss: 24.0561
+STEP: 300 	Loss: 20.4078
+STEP: 350 	Loss: 26.2704
+STEP: 400 	Loss: 15.5563
+Train Acc|Loss:	0.9948|15.0302
+Val Acc|Loss:	0.9842|39.7133
+============= EPOCH: 6 =============
+STEP: 0 	Loss: 15.3300
+STEP: 50 	Loss: 18.2948
+STEP: 100 	Loss: 32.5896
+STEP: 150 	Loss: 23.4563
+STEP: 200 	Loss: 50.0783
+STEP: 250 	Loss: 22.7912
+STEP: 300 	Loss: 5.9723
+STEP: 350 	Loss: 47.4619
+STEP: 400 	Loss: 8.3085
+Train Acc|Loss:	0.9962|11.1634
+Val Acc|Loss:	0.9863|37.3729
+============= EPOCH: 7 =============
+STEP: 0 	Loss: 20.6329
+STEP: 50 	Loss: 0.0000
+STEP: 100 	Loss: 17.4114
+STEP: 150 	Loss: 11.5396
+STEP: 200 	Loss: 26.8245
+STEP: 250 	Loss: 4.5184
+STEP: 300 	Loss: 7.9178
+STEP: 350 	Loss: 28.8030
+STEP: 400 	Loss: 6.2802
+Train Acc|Loss:	0.9967|9.9196
+Val Acc|Loss:	0.9855|38.8363
+============= EPOCH: 8 =============
+STEP: 0 	Loss: 22.3135
+STEP: 50 	Loss: 5.1505
+STEP: 100 	Loss: 0.5024
+STEP: 150 	Loss: 0.0000
+STEP: 200 	Loss: 5.6007
+STEP: 250 	Loss: 0.0785
+STEP: 300 	Loss: 11.3696
+STEP: 350 	Loss: 70.2710
+STEP: 400 	Loss: 34.3696
+Train Acc|Loss:	0.9965|9.2120
+Val Acc|Loss:	0.9863|41.1797
+============= EPOCH: 9 =============
+STEP: 0 	Loss: 4.5928
+STEP: 50 	Loss: 7.9175
+STEP: 100 	Loss: 21.4326
+STEP: 150 	Loss: 17.1790
+STEP: 200 	Loss: 7.5032
+STEP: 250 	Loss: 2.5014
+STEP: 300 	Loss: 32.9126
+STEP: 350 	Loss: 10.0190
+STEP: 400 	Loss: 0.0000
+Train Acc|Loss:	0.9964|9.2380
+Val Acc|Loss:	0.9843|45.1590
+Weights
+11.618603 78.433754 0.022795934 0.118336804
+189.55305 1450.6968 0.017186997 0.09994257
+198.12277 2741.2778 -0.010246328 0.050815597
+7880.6626 247915.12 -0.0017821136 0.017246682
+291.1458 3605.595 -0.0036949716 0.06654982
+25.909225 154.99442 -0.010124946 0.14191219
+Clean accuracy
+(0.9872, 32.659447186279294)
+Gradients
+3355.68353125
+Accuracy on X_atk
+(0.983, 37.42959226989746)
+Attack done
+(1.0, 878.797083984375)
+5.944807
+2018-10-18 09:23:48.803772: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-10-18 09:23:50.058543: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1405] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:4c:00.0
+totalMemory: 10.91GiB freeMemory: 10.76GiB
+2018-10-18 09:23:50.058581: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1484] Adding visible gpu devices: 0
+2018-10-18 09:23:50.282850: I tensorflow/core/common_runtime/gpu/gpu_device.cc:965] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-10-18 09:23:50.282896: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971]      0 
+2018-10-18 09:23:50.282904: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] 0:   N 
+2018-10-18 09:23:50.283111: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1097] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10403 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:4c:00.0, compute capability: 6.1)
+Using TensorFlow backend.
+[INFO 2018-10-18 09:25:17,470 cleverhans] Constructing new graph for attack CarliniWagnerL2
+============= EPOCH: 0 =============
+STEP: 0 	Loss: 1000.0396
+STEP: 50 	Loss: 820.3590
+STEP: 100 	Loss: 185.5116
+STEP: 150 	Loss: 224.2326
+STEP: 200 	Loss: 78.9108
+STEP: 250 	Loss: 60.7948
+STEP: 300 	Loss: 91.7771
+STEP: 350 	Loss: 27.4217
+STEP: 400 	Loss: 56.8661
+Train Acc|Loss:	0.9709|78.2355
+Val Acc|Loss:	0.9680|84.5489
+============= EPOCH: 1 =============
+STEP: 0 	Loss: 65.2082
+STEP: 50 	Loss: 51.2790
+STEP: 100 	Loss: 94.5571
+STEP: 150 	Loss: 42.1267
+STEP: 200 	Loss: 70.5880
+STEP: 250 	Loss: 95.0082
+STEP: 300 	Loss: 80.5672
+STEP: 350 	Loss: 43.0878
+STEP: 400 	Loss: 30.9271
+Train Acc|Loss:	0.9818|49.1246
+Val Acc|Loss:	0.9785|58.6795
+============= EPOCH: 2 =============
+STEP: 0 	Loss: 17.4839
+STEP: 50 	Loss: 72.2862
+STEP: 100 	Loss: 21.0148
+STEP: 150 	Loss: 11.9522
+STEP: 200 	Loss: 21.2032
+STEP: 250 	Loss: 33.2016
+STEP: 300 	Loss: 74.3519
+STEP: 350 	Loss: 8.6796
+STEP: 400 	Loss: 28.6701
+Train Acc|Loss:	0.9882|32.4586
+Val Acc|Loss:	0.9847|42.9776
+============= EPOCH: 3 =============
+STEP: 0 	Loss: 38.6156
+STEP: 50 	Loss: 24.7550
+STEP: 100 	Loss: 42.4101
+STEP: 150 	Loss: 44.0525
+STEP: 200 	Loss: 26.4733
+STEP: 250 	Loss: 40.6253
+STEP: 300 	Loss: 35.7717
+STEP: 350 	Loss: 3.7828
+STEP: 400 	Loss: 0.0529
+Train Acc|Loss:	0.9891|30.3164
+Val Acc|Loss:	0.9832|42.1743
+============= EPOCH: 4 =============
+STEP: 0 	Loss: 52.6542
+STEP: 50 	Loss: 61.3596
+STEP: 100 	Loss: 72.7478
+STEP: 150 	Loss: 4.3252
+STEP: 200 	Loss: 38.2218
+STEP: 250 	Loss: 11.5309
+STEP: 300 	Loss: 22.4249
+STEP: 350 	Loss: 22.1952
+STEP: 400 	Loss: 31.9780
+Train Acc|Loss:	0.9901|26.0917
+Val Acc|Loss:	0.9842|44.9023
+============= EPOCH: 5 =============
+STEP: 0 	Loss: 39.5681
+STEP: 50 	Loss: 10.4517
+STEP: 100 	Loss: 30.8125
+STEP: 150 	Loss: 78.1236
+STEP: 200 	Loss: 11.5252
+STEP: 250 	Loss: 16.8662
+STEP: 300 	Loss: 12.1721
+STEP: 350 	Loss: 13.6804
+STEP: 400 	Loss: 24.1062
+Train Acc|Loss:	0.9920|22.1950
+Val Acc|Loss:	0.9852|41.0389
+============= EPOCH: 6 =============
+STEP: 0 	Loss: 29.7339
+STEP: 50 	Loss: 3.1910
+STEP: 100 	Loss: 7.3769
+STEP: 150 	Loss: 24.1288
+STEP: 200 	Loss: 16.4421
+STEP: 250 	Loss: 0.1757
+STEP: 300 	Loss: 5.9129
+STEP: 350 	Loss: 0.0000
+STEP: 400 	Loss: 40.7012
+Train Acc|Loss:	0.9954|12.9044
+Val Acc|Loss:	0.9882|32.8453
+============= EPOCH: 7 =============
+STEP: 0 	Loss: 39.2660
+STEP: 50 	Loss: 15.5439
+STEP: 100 	Loss: 0.0000
+STEP: 150 	Loss: 7.7316
+STEP: 200 	Loss: 2.2030
+STEP: 250 	Loss: 3.0403
+STEP: 300 	Loss: 2.2354
+STEP: 350 	Loss: 0.0143
+STEP: 400 	Loss: 0.0000
+Train Acc|Loss:	0.9959|11.8197
+Val Acc|Loss:	0.9867|38.9534
+============= EPOCH: 8 =============
+STEP: 0 	Loss: 18.0898
+STEP: 50 	Loss: 26.1992
+STEP: 100 	Loss: 0.0000
+STEP: 150 	Loss: 4.0335
+STEP: 200 	Loss: 43.5454
+STEP: 250 	Loss: 20.9498
+STEP: 300 	Loss: 5.4513
+STEP: 350 	Loss: 4.4841
+STEP: 400 	Loss: 26.7350
+Train Acc|Loss:	0.9959|10.8754
+Val Acc|Loss:	0.9873|35.7450
+============= EPOCH: 9 =============
+STEP: 0 	Loss: 23.0721
+STEP: 50 	Loss: 26.8251
+STEP: 100 	Loss: 16.2806
+STEP: 150 	Loss: 0.0000
+STEP: 200 	Loss: 1.9894
+STEP: 250 	Loss: 20.2201
+STEP: 300 	Loss: 2.5511
+STEP: 350 	Loss: 34.6415
+STEP: 400 	Loss: 12.4727
+Train Acc|Loss:	0.9961|11.6384
+Val Acc|Loss:	0.9860|43.0479
+Weights
+10.346377 75.66916 0.015190359 0.11270415
+185.05228 1445.9991 0.013988402 0.0992172
+166.11034 2632.683 -0.008608785 0.046678737
+7365.072 237927.72 -0.0019761608 0.016644815
+309.01416 3679.9922 -0.002828178 0.06860892
+27.296793 160.1886 -0.010705534 0.14564
+Clean accuracy
+(0.9868, 33.57742012939453)
+Gradients
+2328.26725
+Accuracy on X_atk
+(0.983, 39.129550720214844)
+Attack done
+(1.0, 893.820150390625)
+6.2770805
+2018-10-18 09:25:58.609054: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-10-18 09:25:59.914058: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1405] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:4c:00.0
+totalMemory: 10.91GiB freeMemory: 10.76GiB
+2018-10-18 09:25:59.914098: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1484] Adding visible gpu devices: 0
+2018-10-18 09:26:00.140153: I tensorflow/core/common_runtime/gpu/gpu_device.cc:965] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-10-18 09:26:00.140198: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971]      0 
+2018-10-18 09:26:00.140207: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] 0:   N 
+2018-10-18 09:26:00.140413: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1097] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10403 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:4c:00.0, compute capability: 6.1)
+Using TensorFlow backend.
+[INFO 2018-10-18 09:27:27,434 cleverhans] Constructing new graph for attack CarliniWagnerL2
+============= EPOCH: 0 =============
+STEP: 0 	Loss: 1000.0408
+STEP: 50 	Loss: 827.4216
+STEP: 100 	Loss: 237.7711
+STEP: 150 	Loss: 150.8389
+STEP: 200 	Loss: 165.0994
+STEP: 250 	Loss: 100.2894
+STEP: 300 	Loss: 161.7250
+STEP: 350 	Loss: 74.3640
+STEP: 400 	Loss: 43.3602
+Train Acc|Loss:	0.9669|88.0508
+Val Acc|Loss:	0.9630|99.9327
+============= EPOCH: 1 =============
+STEP: 0 	Loss: 81.1600
+STEP: 50 	Loss: 112.1210
+STEP: 100 	Loss: 112.5506
+STEP: 150 	Loss: 61.1429
+STEP: 200 	Loss: 105.0143
+STEP: 250 	Loss: 96.6019
+STEP: 300 	Loss: 37.9519
+STEP: 350 	Loss: 56.8016
+STEP: 400 	Loss: 56.4362
+Train Acc|Loss:	0.9789|58.7682
+Val Acc|Loss:	0.9723|79.7122
+============= EPOCH: 2 =============
+STEP: 0 	Loss: 22.1272
+STEP: 50 	Loss: 21.8201
+STEP: 100 	Loss: 79.6032
+STEP: 150 	Loss: 31.0794
+STEP: 200 	Loss: 112.0598
+STEP: 250 	Loss: 74.8984
+STEP: 300 	Loss: 56.3504
+STEP: 350 	Loss: 42.9443
+STEP: 400 	Loss: 24.4232
+Train Acc|Loss:	0.9858|39.4959
+Val Acc|Loss:	0.9800|52.8896
+============= EPOCH: 3 =============
+STEP: 0 	Loss: 39.4614
+STEP: 50 	Loss: 16.7438
+STEP: 100 	Loss: 44.7493
+STEP: 150 	Loss: 8.5013
+STEP: 200 	Loss: 48.4633
+STEP: 250 	Loss: 33.1864
+STEP: 300 	Loss: 38.1593
+STEP: 350 	Loss: 26.7266
+STEP: 400 	Loss: 32.9154
+Train Acc|Loss:	0.9879|32.7282
+Val Acc|Loss:	0.9797|52.8670
+============= EPOCH: 4 =============
+STEP: 0 	Loss: 42.1259
+STEP: 50 	Loss: 5.8888
+STEP: 100 	Loss: 22.2202
+STEP: 150 	Loss: 3.9651
+STEP: 200 	Loss: 26.8412
+STEP: 250 	Loss: 28.1916
+STEP: 300 	Loss: 25.6596
+STEP: 350 	Loss: 23.7959
+STEP: 400 	Loss: 23.2961
+Train Acc|Loss:	0.9919|21.9786
+Val Acc|Loss:	0.9822|49.1522
+============= EPOCH: 5 =============
+STEP: 0 	Loss: 15.9583
+STEP: 50 	Loss: 36.8203
+STEP: 100 	Loss: 7.5735
+STEP: 150 	Loss: 13.4489
+STEP: 200 	Loss: 18.9303
+STEP: 250 	Loss: 27.8433
+STEP: 300 	Loss: 45.7575
+STEP: 350 	Loss: 26.7406
+STEP: 400 	Loss: 31.6263
+Train Acc|Loss:	0.9946|15.0995
+Val Acc|Loss:	0.9850|41.6360
+============= EPOCH: 6 =============
+STEP: 0 	Loss: 13.1349
+STEP: 50 	Loss: 16.1177
+STEP: 100 	Loss: 12.7580
+STEP: 150 	Loss: 14.4070
+STEP: 200 	Loss: 52.0423
+STEP: 250 	Loss: 38.0097
+STEP: 300 	Loss: 1.6948
+STEP: 350 	Loss: 9.0207
+STEP: 400 	Loss: 29.3996
+Train Acc|Loss:	0.9933|17.1662
+Val Acc|Loss:	0.9832|46.5516
+============= EPOCH: 7 =============
+STEP: 0 	Loss: 2.6232
+STEP: 50 	Loss: 10.0776
+STEP: 100 	Loss: 12.2161
+STEP: 150 	Loss: 27.1014
+STEP: 200 	Loss: 30.3682
+STEP: 250 	Loss: 0.0000
+STEP: 300 	Loss: 18.3893
+STEP: 350 	Loss: 57.0052
+STEP: 400 	Loss: 36.2641
+Train Acc|Loss:	0.9961|11.3056
+Val Acc|Loss:	0.9842|42.8905
+============= EPOCH: 8 =============
+STEP: 0 	Loss: 9.4468
+STEP: 50 	Loss: 19.8442
+STEP: 100 	Loss: 35.5327
+STEP: 150 	Loss: 3.5172
+STEP: 200 	Loss: 0.0000
+STEP: 250 	Loss: 14.8615
+STEP: 300 	Loss: 15.9934
+STEP: 350 	Loss: 10.9822
+STEP: 400 	Loss: 3.0265
+Train Acc|Loss:	0.9959|11.5768
+Val Acc|Loss:	0.9845|40.8508
+============= EPOCH: 9 =============
+STEP: 0 	Loss: 11.1251
+STEP: 50 	Loss: 0.0000
+STEP: 100 	Loss: 6.8116
+STEP: 150 	Loss: 25.6530
+STEP: 200 	Loss: 0.0000
+STEP: 250 	Loss: 0.0000
+STEP: 300 	Loss: 0.0000
+STEP: 350 	Loss: 8.9716
+STEP: 400 	Loss: 20.4884
+Train Acc|Loss:	0.9982|5.1335
+Val Acc|Loss:	0.9868|40.4492
+Weights
+18.924084 96.48964 0.036304675 0.14945592
+240.46039 1614.7976 0.021746423 0.112128966
+215.5317 2771.5796 -0.009905245 0.05315282
+9206.408 252718.02 -0.002104145 0.018621761
+306.72412 3664.3464 -0.005770661 0.068168454
+23.659237 146.9358 0.0035504051 0.13590871
+Clean accuracy
+(0.9882, 37.966017578125)
+Gradients
+4417.62459375
+Accuracy on X_atk
+(0.983, 42.255473236083986)
+Attack done
+(1.0, 879.01484375)
+5.8541436
+2018-10-18 09:28:05.802093: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-10-18 09:28:07.067988: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1405] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:4c:00.0
+totalMemory: 10.91GiB freeMemory: 10.76GiB
+2018-10-18 09:28:07.068026: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1484] Adding visible gpu devices: 0
+2018-10-18 09:28:07.285658: I tensorflow/core/common_runtime/gpu/gpu_device.cc:965] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-10-18 09:28:07.285707: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971]      0 
+2018-10-18 09:28:07.285716: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] 0:   N 
+2018-10-18 09:28:07.289029: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1097] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10403 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:4c:00.0, compute capability: 6.1)
+Using TensorFlow backend.
+[INFO 2018-10-18 09:29:34,259 cleverhans] Constructing new graph for attack CarliniWagnerL2
+============= EPOCH: 0 =============
+STEP: 0 	Loss: 1000.0408
+STEP: 50 	Loss: 778.3660
+STEP: 100 	Loss: 294.1888
+STEP: 150 	Loss: 307.8072
+STEP: 200 	Loss: 219.7478
+STEP: 250 	Loss: 214.9534
+STEP: 300 	Loss: 270.7654
+STEP: 350 	Loss: 119.5622
+STEP: 400 	Loss: 113.3977
+Train Acc|Loss:	0.9597|108.5778
+Val Acc|Loss:	0.9572|113.0150
+============= EPOCH: 1 =============
+STEP: 0 	Loss: 109.4274
+STEP: 50 	Loss: 31.3593
+STEP: 100 	Loss: 61.2265
+STEP: 150 	Loss: 82.0564
+STEP: 200 	Loss: 46.2649
+STEP: 250 	Loss: 52.3044
+STEP: 300 	Loss: 100.3246
+STEP: 350 	Loss: 87.5553
+STEP: 400 	Loss: 26.0823
+Train Acc|Loss:	0.9788|56.9701
+Val Acc|Loss:	0.9735|68.9662
+============= EPOCH: 2 =============
+STEP: 0 	Loss: 51.7127
+STEP: 50 	Loss: 27.2461
+STEP: 100 	Loss: 79.0299
+STEP: 150 	Loss: 54.3243
+STEP: 200 	Loss: 40.4798
+STEP: 250 	Loss: 14.8848
+STEP: 300 	Loss: 45.4440
+STEP: 350 	Loss: 30.4400
+STEP: 400 	Loss: 17.6021
+Train Acc|Loss:	0.9853|41.2097
+Val Acc|Loss:	0.9770|62.0890
+============= EPOCH: 3 =============
+STEP: 0 	Loss: 33.1574
+STEP: 50 	Loss: 27.0170
+STEP: 100 	Loss: 29.4406
+STEP: 150 	Loss: 44.6134
+STEP: 200 	Loss: 19.4148
+STEP: 250 	Loss: 68.8910
+STEP: 300 	Loss: 32.7354
+STEP: 350 	Loss: 73.5820
+STEP: 400 	Loss: 36.5838
+Train Acc|Loss:	0.9887|31.9825
+Val Acc|Loss:	0.9813|51.7025
+============= EPOCH: 4 =============
+STEP: 0 	Loss: 16.5152
+STEP: 50 	Loss: 23.7753
+STEP: 100 	Loss: 69.0478
+STEP: 150 	Loss: 39.3250
+STEP: 200 	Loss: 16.3460
+STEP: 250 	Loss: 33.8602
+STEP: 300 	Loss: 48.0455
+STEP: 350 	Loss: 26.9847
+STEP: 400 	Loss: 16.8116
+Train Acc|Loss:	0.9907|25.3745
+Val Acc|Loss:	0.9840|47.5661
+============= EPOCH: 5 =============
+STEP: 0 	Loss: 2.1247
+STEP: 50 	Loss: 53.1874
+STEP: 100 	Loss: 59.1156
+STEP: 150 	Loss: 55.1112
+STEP: 200 	Loss: 32.6899
+STEP: 250 	Loss: 22.5900
+STEP: 300 	Loss: 7.1677
+STEP: 350 	Loss: 37.9682
+STEP: 400 	Loss: 26.8561
+Train Acc|Loss:	0.9927|20.5586
+Val Acc|Loss:	0.9818|48.2542
+============= EPOCH: 6 =============
+STEP: 0 	Loss: 27.5001
+STEP: 50 	Loss: 17.0692
+STEP: 100 	Loss: 0.0000
+STEP: 150 	Loss: 43.7852
+STEP: 200 	Loss: 2.2798
+STEP: 250 	Loss: 0.0000
+STEP: 300 	Loss: 31.9250
+STEP: 350 	Loss: 1.4349
+STEP: 400 	Loss: 16.2650
+Train Acc|Loss:	0.9916|22.1668
+Val Acc|Loss:	0.9803|53.2514
+============= EPOCH: 7 =============
+STEP: 0 	Loss: 0.2404
+STEP: 50 	Loss: 8.9320
+STEP: 100 	Loss: 26.4828
+STEP: 150 	Loss: 28.8212
+STEP: 200 	Loss: 43.4592
+STEP: 250 	Loss: 13.9177
+STEP: 300 	Loss: 14.7963
+STEP: 350 	Loss: 1.4418
+STEP: 400 	Loss: 22.2504
+Train Acc|Loss:	0.9954|13.2676
+Val Acc|Loss:	0.9840|43.7384
+============= EPOCH: 8 =============
+STEP: 0 	Loss: 0.0000
+STEP: 50 	Loss: 1.8741
+STEP: 100 	Loss: 9.3190
+STEP: 150 	Loss: 35.4153
+STEP: 200 	Loss: 1.9538
+STEP: 250 	Loss: 25.0769
+STEP: 300 	Loss: 0.0000
+STEP: 350 	Loss: 16.7904
+STEP: 400 	Loss: 11.3957
+Train Acc|Loss:	0.9956|11.4484
+Val Acc|Loss:	0.9850|44.6036
+============= EPOCH: 9 =============
+STEP: 0 	Loss: 8.2211
+STEP: 50 	Loss: 2.1325
+STEP: 100 	Loss: 34.6607
+STEP: 150 	Loss: 5.9196
+STEP: 200 	Loss: 2.3399
+STEP: 250 	Loss: 19.7401
+STEP: 300 	Loss: 5.5205
+STEP: 350 	Loss: 0.0000
+STEP: 400 	Loss: 4.5967
+Train Acc|Loss:	0.9958|11.2118
+Val Acc|Loss:	0.9858|46.9835
+Weights
+17.136375 90.86111 0.027371302 0.1437751
+252.25928 1659.7285 0.027525648 0.113702595
+163.46117 2524.571 -0.009261841 0.04616603
+4541.3057 208438.92 -0.0020172738 0.01300644
+308.4273 3686.753 -0.004069357 0.06848115
+26.02478 155.69186 -0.0015000456 0.14258194
+Clean accuracy
+(0.9861, 37.70856717529297)
+Gradients
+2814.203140625
+Accuracy on X_atk
+(0.985, 45.60366923522949)
+Attack done
+(1.0, 883.7747436523438)
+5.875465
+All done

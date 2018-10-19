@@ -32,7 +32,7 @@ class FeatNet():
         self.feat_scores = []
         with tf.variable_scope(self.scope, reuse=tf.AUTO_REUSE):
             
-            inpt = Input(shape=(32, 32, 3))
+            inpt = Input(shape=input_shape)
             rescale1 = Lambda(lambda x: x*2 - 1., output_shape=(32, 32, 3))(inpt)
             stn = SpatialTransformer(localization_net=locnet_v3(), 
                                      output_size=(32, 32),
