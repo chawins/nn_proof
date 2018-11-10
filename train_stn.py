@@ -11,9 +11,21 @@ from stn.conv_model import conv_model
 from stn.conv_model import conv_model_no_color_adjust
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+sess = tf.Session(config=config)
+from keras.backend.tensorflow_backend import set_session
+set_session(sess)
 
 X_train, y_train, X_val, y_val, X_test, y_test = load_gtsrb()
+
+# Histogram equalization
+from skimage import exposure
+X_train = exposure.equalize_hist(X_train)
+X_val = exposure.equalize_hist(X_val)
+X_test = exposure.equalize_hist(X_test)
 
 print("Number of training examples =", X_train.shape[0])
 print("Number of validating examples =", X_val.shape[0])
@@ -25,7 +37,7 @@ batch_size = 128
 epochs = 150
 # model = conv_model()
 model = conv_model_no_color_adjust()
-save_path = "./keras_weights/temp.hdf5"
+save_path = "./keras_weights/stn_hist_no_bn.hdf5"
 
 checkpointer = ModelCheckpoint(
     filepath=save_path, verbose=1, save_best_only=True,

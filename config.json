@@ -1,27 +1,24 @@
 {
     "_comment": "======== Model Config ========",
     "weights_path": "keras_weights/",
-    "model_name": "adv_train_cnn_v1",
-
+    "model_name": "CnnGtsrbV3",
     "_comment": "======== Dataset information ========",
     "dataset": "gtsrb",
-
     "_comment": "======== Training Config ========",
     "random_seed": 1234,
     "max_num_training_steps": 100000,
     "num_output_steps": 1000,
     "num_summary_steps": 1000,
-    "num_checkpoint_steps": 1000,
+    "num_checkpoint_steps": 5000,
     "training_batch_size": 128,
-
+    "reg": 1e-2,
     "_comment": "======== Evaluation Config =============",
     "num_eval_examples": 10000,
     "eval_batch_size": 200,
     "eval_on_cpu": true,
-
     "_comment": "======== Adversarial Examples Config ========",
-    "eps": 0.03125,
-    "eps_iter": 0.0078125,
+    "eps": 0.01,
+    "eps_iter": 0.002,
     "nb_iter": 7,
     "random_start": true,
     "loss_func": "xent",

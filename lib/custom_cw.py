@@ -206,12 +206,16 @@ class CustomCarliniWagnerL2_TF(object):
             loss1 = tf.maximum(ZERO(), real - other + self.CONFIDENCE)
 
         # Model 2
-        output = model2.get_output(self.newimg)
-        # TODO
-        self.loss1_2 = tf.maximum(ZERO(), thres + CONF - output)
+        self.output2 = model2.get_output(self.newimg)
+        # Attack on layer after sigmoid (deprecated)
+        # self.loss1_2 = tf.maximum(ZERO(), thres + CONF - output)
+        # Attack on layer before sigmoid
+        self.loss1_2 = tf.reduce_sum(tf.maximum(ZERO(), CONF - self.output2), axis=1)
 
         # Sum up the losses
         self.loss1 = self.const * (loss1 + self.loss1_2)
+        # self.loss1 = self.const * self.loss1_2
+        # self.loss1 = self.const * loss1
         self.loss = reduce_mean(self.loss1 + self.l2dist)
 
         # Setup the adam optimizer and keep track of variables we're creating
@@ -252,6 +256,7 @@ class CustomCarliniWagnerL2_TF(object):
         """
 
         def compare(x, y):
+            # return True
             if not isinstance(x, (float, int, np.int64)):
                 x = np.copy(x)
                 if self.TARGETED:
@@ -263,6 +268,16 @@ class CustomCarliniWagnerL2_TF(object):
                 return x == y
             else:
                 return x != y
+        
+        def clip_sig(x):
+            return 1 / (1 + np.exp(-np.clip(x, -30, 30)))
+
+        def check_model2(x):
+            # return True
+            # return np.sum(clip_sig(x)) > self.thres
+            def custom_activation(x):
+                return x / np.sqrt(np.square(x) + 1)
+            return np.sum(custom_activation(x)) > self.thres
 
         batch_size = self.batch_size
 
@@ -312,15 +327,18 @@ class CustomCarliniWagnerL2_TF(object):
             prev = 1e6
             for iteration in range(self.MAX_ITERATIONS):
                 # perform the attack
+                # _, l, l2s, scores, nimg, l1s = self.sess.run([
+                #     self.train, self.loss, self.l2dist, self.output,
+                #     self.newimg, self.loss1_2])
                 _, l, l2s, scores, nimg, l1s = self.sess.run([
                     self.train, self.loss, self.l2dist, self.output,
-                    self.newimg, self.loss1_2])
+                    self.newimg, self.output2])
 
                 if iteration % ((self.MAX_ITERATIONS // 10) or 1) == 0:
                     _logger.debug(("    Iteration {} of {}: loss={:.3g} " +
-                                   "l2={:.3g} l1={:.3g}").format(
+                                   "l2={:.3g} loss1={:.3g}").format(
                                        iteration, self.MAX_ITERATIONS, l,
-                                       np.mean(l2s), np.mean(l1s)))
+                                       np.mean(l2s), np.mean(np.sum(clip_sig(l1s), 1))))
 
                 # check if we should abort search if we're getting nowhere.
                 if self.ABORT_EARLY and \
@@ -334,10 +352,10 @@ class CustomCarliniWagnerL2_TF(object):
                 # adjust the best result found so far
                 for e, (l2, l1, sc, ii) in enumerate(zip(l2s, l1s, scores, nimg)):
                     lab = np.argmax(batchlab[e])
-                    if l2 < bestl2[e] and compare(sc, lab) and l1 < CONF:
+                    if l2 < bestl2[e] and compare(sc, lab) and check_model2(l1):
                         bestl2[e] = l2
                         bestscore[e] = np.argmax(sc)
-                    if l2 < o_bestl2[e] and compare(sc, lab) and l1 < CONF:
+                    if l2 < o_bestl2[e] and compare(sc, lab) and check_model2(l1):
                         o_bestl2[e] = l2
                         o_bestscore[e] = np.argmax(sc)
                         o_bestattack[e] = ii

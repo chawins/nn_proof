@@ -321,19 +321,19 @@ def fgm(x,
     y = y / reduce_sum(y, 1, keepdims=True)
 
     # Compute loss
-    loss = softmax_cross_entropy_with_logits(labels=y, logits=logits)
-    if targeted:
-        loss = -loss
-    # Hinge loss
-    # real = reduce_sum((y) * logits, 1)
-    # other = reduce_max((1 - y) * logits - y * 1e9, 1)
+    # loss = softmax_cross_entropy_with_logits(labels=y, logits=logits)
     # if targeted:
-    #     # if targeted, optimize for making the other class most likely
-    #     loss = tf.maximum(ZERO(), other - real + 0.1)
-    # else:
-    #     # if untargeted, optimize for making this class least likely.
-    #     loss = tf.maximum(ZERO(), real - other + 0.1)
-    # loss = -loss
+    #     loss = -loss
+    # Hinge loss
+    real = reduce_sum((y) * logits, 1)
+    other = reduce_max((1 - y) * logits - y * 1e9, 1)
+    if targeted:
+        # if targeted, optimize for making the other class most likely
+        loss = tf.maximum(ZERO(), other - real + 0.1)
+    else:
+        # if untargeted, optimize for making this class least likely.
+        loss = tf.maximum(ZERO(), real - other + 0.1)
+    loss = -loss
 
     # Define gradient of loss wrt input
     grad, = tf.gradients(loss, x)

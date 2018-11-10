@@ -16,7 +16,7 @@ from small_net import *
 from stn.conv_model import build_cnn_no_stn, conv_model_no_color_adjust
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 
 def eval_cleverhans_clean(X_np, y_np, batch_size=128):
@@ -66,6 +66,7 @@ num_output_steps = config['num_output_steps']
 num_summary_steps = config['num_summary_steps']
 num_checkpoint_steps = config['num_checkpoint_steps']
 batch_size = config['training_batch_size']
+reg = config['reg']
 
 # Set TF random seed to improve reproducibility
 tf.set_random_seed(config['random_seed'])
@@ -105,7 +106,8 @@ if dataset == 'gtsrb':
     nb_classes = y_train.shape[1]
 
     from adv_model import *
-    model = CnnGtsrbV1('CnnGtsrbV1', nb_classes)
+    # model = CnnGtsrbV1('CnnGtsrbV1', nb_classes)
+    model = CnnGtsrbV2(model_name, nb_classes)
 
     # Define input TF placeholder
     x = tf.placeholder(tf.float32, shape=(None, img_rows, img_cols, nchannels))
@@ -166,6 +168,16 @@ acc_clean = tf.reduce_sum(
     tf.cast(tf.equal(y_pred, tf.argmax(y, axis=1)), tf.int32))
 # Since we are not training on clean loss, we stop the gradient
 loss_clean = tf.stop_gradient(loss_clean)
+
+# Add regularization loss
+loss_reg = 0
+for w in tf.trainable_variables(scope=model_name):
+    if len(w.shape) != 1:
+        loss_reg += reg*tf.reduce_sum(tf.square(w))
+loss_adv += loss_reg
+
+# Add regularization loss
+# loss_adv += tf.losses.get_regularization_loss()
 
 # Specify optimizer
 train_step = tf.train.AdamOptimizer(1e-4).minimize(loss_adv)

@@ -1,0 +1,600 @@
+[INFO 2018-11-09 07:12:49,516 test_adv] STEP: 0
+[INFO 2018-11-09 07:12:49,516 test_adv] 	Elapsed time:	1s
+[INFO 2018-11-09 07:12:49,522 test_adv] 	Train loss|acc:		0.00|0.0000
+[INFO 2018-11-09 07:12:49,522 test_adv] 	Adv train loss|acc:	0.00|0.0000
+[INFO 2018-11-09 07:12:50,519 test_adv] 	Val loss|acc:		3.74|0.0533
+[INFO 2018-11-09 07:13:05,434 test_adv] 	Adv val loss|acc:	3.86|0.0424
+[INFO 2018-11-09 07:17:10,049 test_adv] STEP: 1000
+[INFO 2018-11-09 07:17:10,049 test_adv] 	Elapsed time:	261s
+[INFO 2018-11-09 07:17:10,050 test_adv] 	Train loss|acc:		0.75|0.7892
+[INFO 2018-11-09 07:17:10,050 test_adv] 	Adv train loss|acc:	1.16|0.6544
+[INFO 2018-11-09 07:17:10,950 test_adv] 	Val loss|acc:		0.53|0.8528
+[INFO 2018-11-09 07:17:26,241 test_adv] 	Adv val loss|acc:	1.00|0.6916
+[INFO 2018-11-09 07:21:34,047 test_adv] STEP: 2000
+[INFO 2018-11-09 07:21:34,047 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 07:21:34,047 test_adv] 	Train loss|acc:		0.07|0.9842
+[INFO 2018-11-09 07:21:34,047 test_adv] 	Adv train loss|acc:	0.42|0.8853
+[INFO 2018-11-09 07:21:34,947 test_adv] 	Val loss|acc:		0.35|0.9009
+[INFO 2018-11-09 07:21:50,232 test_adv] 	Adv val loss|acc:	0.84|0.7392
+[INFO 2018-11-09 07:25:58,038 test_adv] STEP: 3000
+[INFO 2018-11-09 07:25:58,038 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 07:25:58,039 test_adv] 	Train loss|acc:		0.03|0.9931
+[INFO 2018-11-09 07:25:58,039 test_adv] 	Adv train loss|acc:	0.30|0.9302
+[INFO 2018-11-09 07:25:58,940 test_adv] 	Val loss|acc:		0.39|0.9075
+[INFO 2018-11-09 07:26:14,255 test_adv] 	Adv val loss|acc:	0.91|0.7546
+[INFO 2018-11-09 07:30:22,470 test_adv] STEP: 4000
+[INFO 2018-11-09 07:30:22,470 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 07:30:22,470 test_adv] 	Train loss|acc:		0.02|0.9966
+[INFO 2018-11-09 07:30:22,470 test_adv] 	Adv train loss|acc:	0.25|0.9500
+[INFO 2018-11-09 07:30:23,380 test_adv] 	Val loss|acc:		0.38|0.9118
+[INFO 2018-11-09 07:30:38,649 test_adv] 	Adv val loss|acc:	0.88|0.7789
+[INFO 2018-11-09 07:34:46,486 test_adv] STEP: 5000
+[INFO 2018-11-09 07:34:46,487 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 07:34:46,487 test_adv] 	Train loss|acc:		0.01|0.9974
+[INFO 2018-11-09 07:34:46,487 test_adv] 	Adv train loss|acc:	0.22|0.9604
+[INFO 2018-11-09 07:34:47,394 test_adv] 	Val loss|acc:		0.40|0.9152
+[INFO 2018-11-09 07:35:02,643 test_adv] 	Adv val loss|acc:	0.96|0.7791
+[INFO 2018-11-09 07:39:11,781 test_adv] STEP: 6000
+[INFO 2018-11-09 07:39:11,781 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 07:39:11,781 test_adv] 	Train loss|acc:		0.01|0.9981
+[INFO 2018-11-09 07:39:11,781 test_adv] 	Adv train loss|acc:	0.19|0.9700
+[INFO 2018-11-09 07:39:12,664 test_adv] 	Val loss|acc:		0.37|0.9243
+[INFO 2018-11-09 07:39:28,016 test_adv] 	Adv val loss|acc:	0.94|0.7889
+[INFO 2018-11-09 07:43:36,487 test_adv] STEP: 7000
+[INFO 2018-11-09 07:43:36,487 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 07:43:36,488 test_adv] 	Train loss|acc:		0.01|0.9987
+[INFO 2018-11-09 07:43:36,488 test_adv] 	Adv train loss|acc:	0.18|0.9736
+[INFO 2018-11-09 07:43:37,398 test_adv] 	Val loss|acc:		0.38|0.9311
+[INFO 2018-11-09 07:43:52,660 test_adv] 	Adv val loss|acc:	1.01|0.7923
+[INFO 2018-11-09 07:48:00,712 test_adv] STEP: 8000
+[INFO 2018-11-09 07:48:00,712 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 07:48:00,712 test_adv] 	Train loss|acc:		0.00|0.9989
+[INFO 2018-11-09 07:48:00,712 test_adv] 	Adv train loss|acc:	0.16|0.9787
+[INFO 2018-11-09 07:48:01,604 test_adv] 	Val loss|acc:		0.41|0.9104
+[INFO 2018-11-09 07:48:16,886 test_adv] 	Adv val loss|acc:	0.90|0.8007
+[INFO 2018-11-09 07:52:25,146 test_adv] STEP: 9000
+[INFO 2018-11-09 07:52:25,147 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 07:52:25,147 test_adv] 	Train loss|acc:		0.00|0.9989
+[INFO 2018-11-09 07:52:25,147 test_adv] 	Adv train loss|acc:	0.16|0.9799
+[INFO 2018-11-09 07:52:26,056 test_adv] 	Val loss|acc:		0.38|0.9281
+[INFO 2018-11-09 07:52:41,357 test_adv] 	Adv val loss|acc:	0.93|0.8125
+[INFO 2018-11-09 07:56:49,436 test_adv] STEP: 10000
+[INFO 2018-11-09 07:56:49,437 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 07:56:49,437 test_adv] 	Train loss|acc:		0.00|0.9995
+[INFO 2018-11-09 07:56:49,437 test_adv] 	Adv train loss|acc:	0.15|0.9831
+[INFO 2018-11-09 07:56:50,338 test_adv] 	Val loss|acc:		0.37|0.9379
+[INFO 2018-11-09 07:57:05,697 test_adv] 	Adv val loss|acc:	1.00|0.8141
+[INFO 2018-11-09 08:01:14,677 test_adv] STEP: 11000
+[INFO 2018-11-09 08:01:14,677 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 08:01:14,683 test_adv] 	Train loss|acc:		0.00|0.9993
+[INFO 2018-11-09 08:01:14,683 test_adv] 	Adv train loss|acc:	0.14|0.9851
+[INFO 2018-11-09 08:01:15,588 test_adv] 	Val loss|acc:		0.35|0.9435
+[INFO 2018-11-09 08:01:30,892 test_adv] 	Adv val loss|acc:	1.07|0.7984
+[INFO 2018-11-09 08:05:40,009 test_adv] STEP: 12000
+[INFO 2018-11-09 08:05:40,009 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 08:05:40,010 test_adv] 	Train loss|acc:		0.00|0.9996
+[INFO 2018-11-09 08:05:40,010 test_adv] 	Adv train loss|acc:	0.13|0.9863
+[INFO 2018-11-09 08:05:40,901 test_adv] 	Val loss|acc:		0.30|0.9410
+[INFO 2018-11-09 08:05:56,300 test_adv] 	Adv val loss|acc:	0.95|0.8020
+[INFO 2018-11-09 08:10:05,210 test_adv] STEP: 13000
+[INFO 2018-11-09 08:10:05,210 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 08:10:05,210 test_adv] 	Train loss|acc:		0.00|0.9996
+[INFO 2018-11-09 08:10:05,210 test_adv] 	Adv train loss|acc:	0.13|0.9876
+[INFO 2018-11-09 08:10:06,127 test_adv] 	Val loss|acc:		0.30|0.9433
+[INFO 2018-11-09 08:10:21,441 test_adv] 	Adv val loss|acc:	0.93|0.8102
+[INFO 2018-11-09 08:14:29,963 test_adv] STEP: 14000
+[INFO 2018-11-09 08:14:29,963 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 08:14:29,963 test_adv] 	Train loss|acc:		0.00|0.9998
+[INFO 2018-11-09 08:14:29,964 test_adv] 	Adv train loss|acc:	0.12|0.9885
+[INFO 2018-11-09 08:14:30,873 test_adv] 	Val loss|acc:		0.32|0.9413
+[INFO 2018-11-09 08:14:46,181 test_adv] 	Adv val loss|acc:	0.88|0.8243
+[INFO 2018-11-09 08:18:54,641 test_adv] STEP: 15000
+[INFO 2018-11-09 08:18:54,641 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 08:18:54,642 test_adv] 	Train loss|acc:		0.00|0.9996
+[INFO 2018-11-09 08:18:54,642 test_adv] 	Adv train loss|acc:	0.11|0.9893
+[INFO 2018-11-09 08:18:55,555 test_adv] 	Val loss|acc:		0.30|0.9449
+[INFO 2018-11-09 08:19:10,848 test_adv] 	Adv val loss|acc:	0.93|0.8220
+[INFO 2018-11-09 08:23:20,610 test_adv] STEP: 16000
+[INFO 2018-11-09 08:23:20,610 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 08:23:20,611 test_adv] 	Train loss|acc:		0.00|0.9997
+[INFO 2018-11-09 08:23:20,611 test_adv] 	Adv train loss|acc:	0.11|0.9899
+[INFO 2018-11-09 08:23:21,525 test_adv] 	Val loss|acc:		0.33|0.9440
+[INFO 2018-11-09 08:23:36,882 test_adv] 	Adv val loss|acc:	0.93|0.8311
+[INFO 2018-11-09 08:28:00,890 test_adv] STEP: 17000
+[INFO 2018-11-09 08:28:00,891 test_adv] 	Elapsed time:	280s
+[INFO 2018-11-09 08:28:00,893 test_adv] 	Train loss|acc:		0.00|0.9998
+[INFO 2018-11-09 08:28:00,893 test_adv] 	Adv train loss|acc:	0.10|0.9914
+[INFO 2018-11-09 08:28:01,874 test_adv] 	Val loss|acc:		0.33|0.9406
+[INFO 2018-11-09 08:28:18,603 test_adv] 	Adv val loss|acc:	0.93|0.8168
+[INFO 2018-11-09 08:32:35,093 test_adv] STEP: 18000
+[INFO 2018-11-09 08:32:35,093 test_adv] 	Elapsed time:	274s
+[INFO 2018-11-09 08:32:35,094 test_adv] 	Train loss|acc:		0.00|0.9998
+[INFO 2018-11-09 08:32:35,094 test_adv] 	Adv train loss|acc:	0.10|0.9917
+[INFO 2018-11-09 08:32:36,017 test_adv] 	Val loss|acc:		0.31|0.9433
+[INFO 2018-11-09 08:32:51,426 test_adv] 	Adv val loss|acc:	0.99|0.8234
+[INFO 2018-11-09 08:37:07,958 test_adv] STEP: 19000
+[INFO 2018-11-09 08:37:07,958 test_adv] 	Elapsed time:	273s
+[INFO 2018-11-09 08:37:07,958 test_adv] 	Train loss|acc:		0.00|0.9998
+[INFO 2018-11-09 08:37:07,958 test_adv] 	Adv train loss|acc:	0.09|0.9912
+[INFO 2018-11-09 08:37:08,854 test_adv] 	Val loss|acc:		0.34|0.9490
+[INFO 2018-11-09 08:37:24,245 test_adv] 	Adv val loss|acc:	1.02|0.8304
+[INFO 2018-11-09 08:41:33,295 test_adv] STEP: 20000
+[INFO 2018-11-09 08:41:33,295 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 08:41:33,295 test_adv] 	Train loss|acc:		0.00|0.9998
+[INFO 2018-11-09 08:41:33,295 test_adv] 	Adv train loss|acc:	0.09|0.9913
+[INFO 2018-11-09 08:41:34,193 test_adv] 	Val loss|acc:		0.32|0.9404
+[INFO 2018-11-09 08:41:49,500 test_adv] 	Adv val loss|acc:	0.93|0.8367
+[INFO 2018-11-09 08:45:59,408 test_adv] STEP: 21000
+[INFO 2018-11-09 08:45:59,408 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 08:45:59,408 test_adv] 	Train loss|acc:		0.00|0.9998
+[INFO 2018-11-09 08:45:59,408 test_adv] 	Adv train loss|acc:	0.08|0.9930
+[INFO 2018-11-09 08:46:00,326 test_adv] 	Val loss|acc:		0.35|0.9451
+[INFO 2018-11-09 08:46:15,710 test_adv] 	Adv val loss|acc:	1.00|0.8440
+[INFO 2018-11-09 08:50:24,547 test_adv] STEP: 22000
+[INFO 2018-11-09 08:50:24,547 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 08:50:24,547 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 08:50:24,547 test_adv] 	Adv train loss|acc:	0.08|0.9932
+[INFO 2018-11-09 08:50:25,447 test_adv] 	Val loss|acc:		0.34|0.9435
+[INFO 2018-11-09 08:50:40,851 test_adv] 	Adv val loss|acc:	0.93|0.8431
+[INFO 2018-11-09 08:54:49,830 test_adv] STEP: 23000
+[INFO 2018-11-09 08:54:49,830 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 08:54:49,830 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 08:54:49,830 test_adv] 	Adv train loss|acc:	0.08|0.9936
+[INFO 2018-11-09 08:54:50,728 test_adv] 	Val loss|acc:		0.23|0.9488
+[INFO 2018-11-09 08:55:06,134 test_adv] 	Adv val loss|acc:	0.76|0.8447
+[INFO 2018-11-09 08:59:25,611 test_adv] STEP: 24000
+[INFO 2018-11-09 08:59:25,611 test_adv] 	Elapsed time:	276s
+[INFO 2018-11-09 08:59:25,612 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 08:59:25,612 test_adv] 	Adv train loss|acc:	0.08|0.9933
+[INFO 2018-11-09 08:59:26,535 test_adv] 	Val loss|acc:		0.23|0.9535
+[INFO 2018-11-09 08:59:42,846 test_adv] 	Adv val loss|acc:	0.94|0.8340
+[INFO 2018-11-09 09:04:17,033 test_adv] STEP: 25000
+[INFO 2018-11-09 09:04:17,034 test_adv] 	Elapsed time:	291s
+[INFO 2018-11-09 09:04:17,034 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:04:17,034 test_adv] 	Adv train loss|acc:	0.07|0.9942
+[INFO 2018-11-09 09:04:17,987 test_adv] 	Val loss|acc:		0.28|0.9531
+[INFO 2018-11-09 09:04:34,749 test_adv] 	Adv val loss|acc:	0.94|0.8388
+[INFO 2018-11-09 09:09:11,905 test_adv] STEP: 26000
+[INFO 2018-11-09 09:09:11,905 test_adv] 	Elapsed time:	295s
+[INFO 2018-11-09 09:09:11,905 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:09:11,906 test_adv] 	Adv train loss|acc:	0.07|0.9944
+[INFO 2018-11-09 09:09:12,862 test_adv] 	Val loss|acc:		0.28|0.9510
+[INFO 2018-11-09 09:09:29,561 test_adv] 	Adv val loss|acc:	0.91|0.8370
+[INFO 2018-11-09 09:14:05,891 test_adv] STEP: 27000
+[INFO 2018-11-09 09:14:05,892 test_adv] 	Elapsed time:	294s
+[INFO 2018-11-09 09:14:05,892 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:14:05,892 test_adv] 	Adv train loss|acc:	0.07|0.9948
+[INFO 2018-11-09 09:14:06,887 test_adv] 	Val loss|acc:		0.24|0.9574
+[INFO 2018-11-09 09:14:23,623 test_adv] 	Adv val loss|acc:	0.89|0.8392
+[INFO 2018-11-09 09:18:41,584 test_adv] STEP: 28000
+[INFO 2018-11-09 09:18:41,584 test_adv] 	Elapsed time:	276s
+[INFO 2018-11-09 09:18:41,585 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:18:41,585 test_adv] 	Adv train loss|acc:	0.07|0.9943
+[INFO 2018-11-09 09:18:42,478 test_adv] 	Val loss|acc:		0.31|0.9449
+[INFO 2018-11-09 09:18:57,825 test_adv] 	Adv val loss|acc:	0.96|0.8304
+[INFO 2018-11-09 09:23:06,266 test_adv] STEP: 29000
+[INFO 2018-11-09 09:23:06,267 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 09:23:06,267 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:23:06,267 test_adv] 	Adv train loss|acc:	0.06|0.9940
+[INFO 2018-11-09 09:23:07,169 test_adv] 	Val loss|acc:		0.23|0.9565
+[INFO 2018-11-09 09:23:22,452 test_adv] 	Adv val loss|acc:	0.88|0.8395
+[INFO 2018-11-09 09:27:30,938 test_adv] STEP: 30000
+[INFO 2018-11-09 09:27:30,938 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 09:27:30,938 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:27:30,939 test_adv] 	Adv train loss|acc:	0.06|0.9954
+[INFO 2018-11-09 09:27:31,834 test_adv] 	Val loss|acc:		0.30|0.9508
+[INFO 2018-11-09 09:27:47,174 test_adv] 	Adv val loss|acc:	0.97|0.8340
+[INFO 2018-11-09 09:31:56,956 test_adv] STEP: 31000
+[INFO 2018-11-09 09:31:56,956 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 09:31:56,962 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:31:56,962 test_adv] 	Adv train loss|acc:	0.06|0.9955
+[INFO 2018-11-09 09:31:57,846 test_adv] 	Val loss|acc:		0.26|0.9469
+[INFO 2018-11-09 09:32:13,176 test_adv] 	Adv val loss|acc:	0.81|0.8447
+[INFO 2018-11-09 09:36:21,218 test_adv] STEP: 32000
+[INFO 2018-11-09 09:36:21,218 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 09:36:21,219 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:36:21,219 test_adv] 	Adv train loss|acc:	0.06|0.9952
+[INFO 2018-11-09 09:36:22,131 test_adv] 	Val loss|acc:		0.27|0.9420
+[INFO 2018-11-09 09:36:37,504 test_adv] 	Adv val loss|acc:	0.84|0.8302
+[INFO 2018-11-09 09:40:46,097 test_adv] STEP: 33000
+[INFO 2018-11-09 09:40:46,098 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 09:40:46,098 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:40:46,098 test_adv] 	Adv train loss|acc:	0.06|0.9949
+[INFO 2018-11-09 09:40:47,009 test_adv] 	Val loss|acc:		0.23|0.9512
+[INFO 2018-11-09 09:41:02,283 test_adv] 	Adv val loss|acc:	0.83|0.8442
+[INFO 2018-11-09 09:45:10,534 test_adv] STEP: 34000
+[INFO 2018-11-09 09:45:10,534 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 09:45:10,535 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 09:45:10,535 test_adv] 	Adv train loss|acc:	0.06|0.9945
+[INFO 2018-11-09 09:45:11,433 test_adv] 	Val loss|acc:		0.25|0.9499
+[INFO 2018-11-09 09:45:26,793 test_adv] 	Adv val loss|acc:	0.85|0.8499
+[INFO 2018-11-09 09:49:35,191 test_adv] STEP: 35000
+[INFO 2018-11-09 09:49:35,192 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 09:49:35,192 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 09:49:35,192 test_adv] 	Adv train loss|acc:	0.05|0.9963
+[INFO 2018-11-09 09:49:36,076 test_adv] 	Val loss|acc:		0.21|0.9546
+[INFO 2018-11-09 09:49:51,463 test_adv] 	Adv val loss|acc:	0.79|0.8542
+[INFO 2018-11-09 09:54:01,057 test_adv] STEP: 36000
+[INFO 2018-11-09 09:54:01,058 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 09:54:01,058 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 09:54:01,058 test_adv] 	Adv train loss|acc:	0.05|0.9954
+[INFO 2018-11-09 09:54:01,960 test_adv] 	Val loss|acc:		0.23|0.9517
+[INFO 2018-11-09 09:54:17,279 test_adv] 	Adv val loss|acc:	0.85|0.8420
+[INFO 2018-11-09 09:58:25,428 test_adv] STEP: 37000
+[INFO 2018-11-09 09:58:25,428 test_adv] 	Elapsed time:	264s
+[INFO 2018-11-09 09:58:25,428 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 09:58:25,428 test_adv] 	Adv train loss|acc:	0.05|0.9954
+[INFO 2018-11-09 09:58:26,336 test_adv] 	Val loss|acc:		0.25|0.9465
+[INFO 2018-11-09 09:58:41,665 test_adv] 	Adv val loss|acc:	0.77|0.8556
+[INFO 2018-11-09 10:02:50,782 test_adv] STEP: 38000
+[INFO 2018-11-09 10:02:50,782 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 10:02:50,783 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:02:50,783 test_adv] 	Adv train loss|acc:	0.05|0.9961
+[INFO 2018-11-09 10:02:51,688 test_adv] 	Val loss|acc:		0.22|0.9551
+[INFO 2018-11-09 10:03:06,965 test_adv] 	Adv val loss|acc:	0.84|0.8485
+[INFO 2018-11-09 10:07:16,894 test_adv] STEP: 39000
+[INFO 2018-11-09 10:07:16,894 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 10:07:16,895 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:07:16,895 test_adv] 	Adv train loss|acc:	0.05|0.9955
+[INFO 2018-11-09 10:07:17,781 test_adv] 	Val loss|acc:		0.21|0.9558
+[INFO 2018-11-09 10:07:33,087 test_adv] 	Adv val loss|acc:	0.81|0.8526
+[INFO 2018-11-09 10:11:41,543 test_adv] STEP: 40000
+[INFO 2018-11-09 10:11:41,544 test_adv] 	Elapsed time:	265s
+[INFO 2018-11-09 10:11:41,544 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 10:11:41,544 test_adv] 	Adv train loss|acc:	0.05|0.9963
+[INFO 2018-11-09 10:11:42,459 test_adv] 	Val loss|acc:		0.21|0.9531
+[INFO 2018-11-09 10:11:57,852 test_adv] 	Adv val loss|acc:	0.75|0.8533
+[INFO 2018-11-09 10:16:09,525 test_adv] STEP: 41000
+[INFO 2018-11-09 10:16:09,526 test_adv] 	Elapsed time:	268s
+[INFO 2018-11-09 10:16:09,526 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:16:09,526 test_adv] 	Adv train loss|acc:	0.05|0.9954
+[INFO 2018-11-09 10:16:10,422 test_adv] 	Val loss|acc:		0.16|0.9630
+[INFO 2018-11-09 10:16:25,784 test_adv] 	Adv val loss|acc:	0.83|0.8476
+[INFO 2018-11-09 10:20:51,880 test_adv] STEP: 42000
+[INFO 2018-11-09 10:20:51,880 test_adv] 	Elapsed time:	282s
+[INFO 2018-11-09 10:20:51,880 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:20:51,881 test_adv] 	Adv train loss|acc:	0.04|0.9966
+[INFO 2018-11-09 10:20:52,795 test_adv] 	Val loss|acc:		0.24|0.9444
+[INFO 2018-11-09 10:21:08,102 test_adv] 	Adv val loss|acc:	0.80|0.8388
+[INFO 2018-11-09 10:25:17,556 test_adv] STEP: 43000
+[INFO 2018-11-09 10:25:17,556 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 10:25:17,556 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:25:17,556 test_adv] 	Adv train loss|acc:	0.05|0.9957
+[INFO 2018-11-09 10:25:18,448 test_adv] 	Val loss|acc:		0.15|0.9617
+[INFO 2018-11-09 10:25:33,844 test_adv] 	Adv val loss|acc:	0.82|0.8429
+[INFO 2018-11-09 10:29:43,411 test_adv] STEP: 44000
+[INFO 2018-11-09 10:29:43,411 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 10:29:43,411 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 10:29:43,411 test_adv] 	Adv train loss|acc:	0.04|0.9964
+[INFO 2018-11-09 10:29:44,325 test_adv] 	Val loss|acc:		0.22|0.9522
+[INFO 2018-11-09 10:29:59,735 test_adv] 	Adv val loss|acc:	0.84|0.8542
+[INFO 2018-11-09 10:34:09,463 test_adv] STEP: 45000
+[INFO 2018-11-09 10:34:09,464 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 10:34:09,464 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:34:09,464 test_adv] 	Adv train loss|acc:	0.04|0.9966
+[INFO 2018-11-09 10:34:10,364 test_adv] 	Val loss|acc:		0.22|0.9524
+[INFO 2018-11-09 10:34:25,753 test_adv] 	Adv val loss|acc:	0.79|0.8544
+[INFO 2018-11-09 10:38:36,428 test_adv] STEP: 46000
+[INFO 2018-11-09 10:38:36,428 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 10:38:36,428 test_adv] 	Train loss|acc:		0.00|0.9999
+[INFO 2018-11-09 10:38:36,429 test_adv] 	Adv train loss|acc:	0.04|0.9960
+[INFO 2018-11-09 10:38:37,322 test_adv] 	Val loss|acc:		0.18|0.9558
+[INFO 2018-11-09 10:38:52,705 test_adv] 	Adv val loss|acc:	0.74|0.8592
+[INFO 2018-11-09 10:43:02,962 test_adv] STEP: 47000
+[INFO 2018-11-09 10:43:02,962 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 10:43:02,962 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:43:02,963 test_adv] 	Adv train loss|acc:	0.04|0.9961
+[INFO 2018-11-09 10:43:03,885 test_adv] 	Val loss|acc:		0.20|0.9576
+[INFO 2018-11-09 10:43:19,348 test_adv] 	Adv val loss|acc:	0.75|0.8551
+[INFO 2018-11-09 10:47:29,953 test_adv] STEP: 48000
+[INFO 2018-11-09 10:47:29,953 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 10:47:29,953 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:47:29,953 test_adv] 	Adv train loss|acc:	0.04|0.9969
+[INFO 2018-11-09 10:47:30,878 test_adv] 	Val loss|acc:		0.20|0.9569
+[INFO 2018-11-09 10:47:46,341 test_adv] 	Adv val loss|acc:	0.76|0.8592
+[INFO 2018-11-09 10:51:56,844 test_adv] STEP: 49000
+[INFO 2018-11-09 10:51:56,844 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 10:51:56,844 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:51:56,844 test_adv] 	Adv train loss|acc:	0.04|0.9964
+[INFO 2018-11-09 10:51:57,740 test_adv] 	Val loss|acc:		0.18|0.9596
+[INFO 2018-11-09 10:52:13,222 test_adv] 	Adv val loss|acc:	0.77|0.8580
+[INFO 2018-11-09 10:56:23,277 test_adv] STEP: 50000
+[INFO 2018-11-09 10:56:23,277 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 10:56:23,278 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 10:56:23,278 test_adv] 	Adv train loss|acc:	0.04|0.9962
+[INFO 2018-11-09 10:56:24,178 test_adv] 	Val loss|acc:		0.15|0.9569
+[INFO 2018-11-09 10:56:39,632 test_adv] 	Adv val loss|acc:	0.70|0.8630
+[INFO 2018-11-09 11:00:50,638 test_adv] STEP: 51000
+[INFO 2018-11-09 11:00:50,639 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:00:50,639 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:00:50,639 test_adv] 	Adv train loss|acc:	0.04|0.9967
+[INFO 2018-11-09 11:00:51,554 test_adv] 	Val loss|acc:		0.19|0.9549
+[INFO 2018-11-09 11:01:06,983 test_adv] 	Adv val loss|acc:	0.79|0.8508
+[INFO 2018-11-09 11:05:17,214 test_adv] STEP: 52000
+[INFO 2018-11-09 11:05:17,214 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:05:17,214 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:05:17,214 test_adv] 	Adv train loss|acc:	0.04|0.9965
+[INFO 2018-11-09 11:05:18,131 test_adv] 	Val loss|acc:		0.17|0.9617
+[INFO 2018-11-09 11:05:33,541 test_adv] 	Adv val loss|acc:	0.82|0.8585
+[INFO 2018-11-09 11:09:43,583 test_adv] STEP: 53000
+[INFO 2018-11-09 11:09:43,584 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 11:09:43,584 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:09:43,584 test_adv] 	Adv train loss|acc:	0.04|0.9969
+[INFO 2018-11-09 11:09:44,470 test_adv] 	Val loss|acc:		0.18|0.9533
+[INFO 2018-11-09 11:09:59,907 test_adv] 	Adv val loss|acc:	0.70|0.8565
+[INFO 2018-11-09 11:14:10,045 test_adv] STEP: 54000
+[INFO 2018-11-09 11:14:10,045 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 11:14:10,051 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:14:10,051 test_adv] 	Adv train loss|acc:	0.04|0.9969
+[INFO 2018-11-09 11:14:10,950 test_adv] 	Val loss|acc:		0.24|0.9481
+[INFO 2018-11-09 11:14:26,371 test_adv] 	Adv val loss|acc:	0.81|0.8503
+[INFO 2018-11-09 11:18:36,633 test_adv] STEP: 55000
+[INFO 2018-11-09 11:18:36,634 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:18:36,634 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:18:36,634 test_adv] 	Adv train loss|acc:	0.04|0.9960
+[INFO 2018-11-09 11:18:37,545 test_adv] 	Val loss|acc:		0.23|0.9508
+[INFO 2018-11-09 11:18:53,015 test_adv] 	Adv val loss|acc:	0.82|0.8385
+[INFO 2018-11-09 11:23:04,148 test_adv] STEP: 56000
+[INFO 2018-11-09 11:23:04,148 test_adv] 	Elapsed time:	268s
+[INFO 2018-11-09 11:23:04,149 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:23:04,149 test_adv] 	Adv train loss|acc:	0.04|0.9968
+[INFO 2018-11-09 11:23:05,043 test_adv] 	Val loss|acc:		0.18|0.9592
+[INFO 2018-11-09 11:23:20,462 test_adv] 	Adv val loss|acc:	0.75|0.8599
+[INFO 2018-11-09 11:27:30,572 test_adv] STEP: 57000
+[INFO 2018-11-09 11:27:30,573 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 11:27:30,573 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:27:30,573 test_adv] 	Adv train loss|acc:	0.04|0.9965
+[INFO 2018-11-09 11:27:31,476 test_adv] 	Val loss|acc:		0.17|0.9594
+[INFO 2018-11-09 11:27:46,937 test_adv] 	Adv val loss|acc:	0.75|0.8476
+[INFO 2018-11-09 11:31:57,318 test_adv] STEP: 58000
+[INFO 2018-11-09 11:31:57,318 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:31:57,319 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:31:57,319 test_adv] 	Adv train loss|acc:	0.04|0.9972
+[INFO 2018-11-09 11:31:58,218 test_adv] 	Val loss|acc:		0.16|0.9574
+[INFO 2018-11-09 11:32:13,704 test_adv] 	Adv val loss|acc:	0.68|0.8605
+[INFO 2018-11-09 11:36:23,860 test_adv] STEP: 59000
+[INFO 2018-11-09 11:36:23,860 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:36:23,861 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:36:23,861 test_adv] 	Adv train loss|acc:	0.04|0.9966
+[INFO 2018-11-09 11:36:24,779 test_adv] 	Val loss|acc:		0.16|0.9617
+[INFO 2018-11-09 11:36:40,206 test_adv] 	Adv val loss|acc:	0.74|0.8544
+[INFO 2018-11-09 11:40:50,729 test_adv] STEP: 60000
+[INFO 2018-11-09 11:40:50,729 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:40:50,730 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:40:50,730 test_adv] 	Adv train loss|acc:	0.03|0.9975
+[INFO 2018-11-09 11:40:51,655 test_adv] 	Val loss|acc:		0.14|0.9576
+[INFO 2018-11-09 11:41:07,089 test_adv] 	Adv val loss|acc:	0.65|0.8619
+[INFO 2018-11-09 11:45:18,724 test_adv] STEP: 61000
+[INFO 2018-11-09 11:45:18,724 test_adv] 	Elapsed time:	268s
+[INFO 2018-11-09 11:45:18,724 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:45:18,725 test_adv] 	Adv train loss|acc:	0.04|0.9966
+[INFO 2018-11-09 11:45:19,661 test_adv] 	Val loss|acc:		0.20|0.9533
+[INFO 2018-11-09 11:45:35,123 test_adv] 	Adv val loss|acc:	0.77|0.8565
+[INFO 2018-11-09 11:49:45,563 test_adv] STEP: 62000
+[INFO 2018-11-09 11:49:45,563 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:49:45,563 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:49:45,563 test_adv] 	Adv train loss|acc:	0.04|0.9969
+[INFO 2018-11-09 11:49:46,457 test_adv] 	Val loss|acc:		0.18|0.9542
+[INFO 2018-11-09 11:50:01,901 test_adv] 	Adv val loss|acc:	0.69|0.8617
+[INFO 2018-11-09 11:54:12,511 test_adv] STEP: 63000
+[INFO 2018-11-09 11:54:12,511 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:54:12,511 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:54:12,511 test_adv] 	Adv train loss|acc:	0.04|0.9964
+[INFO 2018-11-09 11:54:13,424 test_adv] 	Val loss|acc:		0.22|0.9474
+[INFO 2018-11-09 11:54:28,846 test_adv] 	Adv val loss|acc:	0.65|0.8517
+[INFO 2018-11-09 11:58:39,291 test_adv] STEP: 64000
+[INFO 2018-11-09 11:58:39,291 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 11:58:39,291 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 11:58:39,291 test_adv] 	Adv train loss|acc:	0.04|0.9969
+[INFO 2018-11-09 11:58:40,208 test_adv] 	Val loss|acc:		0.14|0.9603
+[INFO 2018-11-09 11:58:55,689 test_adv] 	Adv val loss|acc:	0.73|0.8508
+[INFO 2018-11-09 12:03:05,977 test_adv] STEP: 65000
+[INFO 2018-11-09 12:03:05,977 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 12:03:05,977 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:03:05,977 test_adv] 	Adv train loss|acc:	0.03|0.9975
+[INFO 2018-11-09 12:03:06,887 test_adv] 	Val loss|acc:		0.16|0.9592
+[INFO 2018-11-09 12:03:22,285 test_adv] 	Adv val loss|acc:	0.80|0.8537
+[INFO 2018-11-09 12:07:33,656 test_adv] STEP: 66000
+[INFO 2018-11-09 12:07:33,656 test_adv] 	Elapsed time:	268s
+[INFO 2018-11-09 12:07:33,656 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:07:33,657 test_adv] 	Adv train loss|acc:	0.04|0.9966
+[INFO 2018-11-09 12:07:34,580 test_adv] 	Val loss|acc:		0.16|0.9673
+[INFO 2018-11-09 12:07:50,044 test_adv] 	Adv val loss|acc:	0.84|0.8515
+[INFO 2018-11-09 12:12:00,309 test_adv] STEP: 67000
+[INFO 2018-11-09 12:12:00,309 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 12:12:00,309 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:12:00,309 test_adv] 	Adv train loss|acc:	0.04|0.9969
+[INFO 2018-11-09 12:12:01,218 test_adv] 	Val loss|acc:		0.17|0.9556
+[INFO 2018-11-09 12:12:16,655 test_adv] 	Adv val loss|acc:	0.75|0.8558
+[INFO 2018-11-09 12:16:26,753 test_adv] STEP: 68000
+[INFO 2018-11-09 12:16:26,754 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 12:16:26,754 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:16:26,754 test_adv] 	Adv train loss|acc:	0.03|0.9974
+[INFO 2018-11-09 12:16:27,649 test_adv] 	Val loss|acc:		0.18|0.9583
+[INFO 2018-11-09 12:16:43,190 test_adv] 	Adv val loss|acc:	0.72|0.8583
+[INFO 2018-11-09 12:20:53,796 test_adv] STEP: 69000
+[INFO 2018-11-09 12:20:53,796 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 12:20:53,797 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:20:53,797 test_adv] 	Adv train loss|acc:	0.04|0.9965
+[INFO 2018-11-09 12:20:54,691 test_adv] 	Val loss|acc:		0.16|0.9617
+[INFO 2018-11-09 12:21:10,157 test_adv] 	Adv val loss|acc:	0.80|0.8571
+[INFO 2018-11-09 12:25:20,280 test_adv] STEP: 70000
+[INFO 2018-11-09 12:25:20,281 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 12:25:20,281 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:25:20,281 test_adv] 	Adv train loss|acc:	0.03|0.9971
+[INFO 2018-11-09 12:25:21,206 test_adv] 	Val loss|acc:		0.16|0.9608
+[INFO 2018-11-09 12:25:36,681 test_adv] 	Adv val loss|acc:	0.76|0.8583
+[INFO 2018-11-09 12:29:48,158 test_adv] STEP: 71000
+[INFO 2018-11-09 12:29:48,158 test_adv] 	Elapsed time:	268s
+[INFO 2018-11-09 12:29:48,158 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:29:48,158 test_adv] 	Adv train loss|acc:	0.03|0.9974
+[INFO 2018-11-09 12:29:49,068 test_adv] 	Val loss|acc:		0.16|0.9549
+[INFO 2018-11-09 12:30:04,530 test_adv] 	Adv val loss|acc:	0.71|0.8517
+[INFO 2018-11-09 12:34:14,829 test_adv] STEP: 72000
+[INFO 2018-11-09 12:34:14,829 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 12:34:14,830 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:34:14,830 test_adv] 	Adv train loss|acc:	0.03|0.9970
+[INFO 2018-11-09 12:34:15,754 test_adv] 	Val loss|acc:		0.16|0.9535
+[INFO 2018-11-09 12:34:31,152 test_adv] 	Adv val loss|acc:	0.72|0.8497
+[INFO 2018-11-09 12:38:41,527 test_adv] STEP: 73000
+[INFO 2018-11-09 12:38:41,527 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 12:38:41,527 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:38:41,528 test_adv] 	Adv train loss|acc:	0.03|0.9978
+[INFO 2018-11-09 12:38:42,440 test_adv] 	Val loss|acc:		0.18|0.9533
+[INFO 2018-11-09 12:38:57,917 test_adv] 	Adv val loss|acc:	0.74|0.8449
+[INFO 2018-11-09 12:43:08,312 test_adv] STEP: 74000
+[INFO 2018-11-09 12:43:08,312 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 12:43:08,312 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:43:08,312 test_adv] 	Adv train loss|acc:	0.03|0.9968
+[INFO 2018-11-09 12:43:09,212 test_adv] 	Val loss|acc:		0.18|0.9535
+[INFO 2018-11-09 12:43:24,666 test_adv] 	Adv val loss|acc:	0.75|0.8546
+[INFO 2018-11-09 12:47:34,763 test_adv] STEP: 75000
+[INFO 2018-11-09 12:47:34,763 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 12:47:34,763 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:47:34,763 test_adv] 	Adv train loss|acc:	0.03|0.9975
+[INFO 2018-11-09 12:47:35,682 test_adv] 	Val loss|acc:		0.17|0.9615
+[INFO 2018-11-09 12:47:51,109 test_adv] 	Adv val loss|acc:	0.75|0.8617
+[INFO 2018-11-09 12:52:02,291 test_adv] STEP: 76000
+[INFO 2018-11-09 12:52:02,291 test_adv] 	Elapsed time:	268s
+[INFO 2018-11-09 12:52:02,292 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:52:02,292 test_adv] 	Adv train loss|acc:	0.03|0.9973
+[INFO 2018-11-09 12:52:03,193 test_adv] 	Val loss|acc:		0.18|0.9528
+[INFO 2018-11-09 12:52:18,624 test_adv] 	Adv val loss|acc:	0.74|0.8590
+[INFO 2018-11-09 12:56:28,637 test_adv] STEP: 77000
+[INFO 2018-11-09 12:56:28,637 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 12:56:28,637 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 12:56:28,638 test_adv] 	Adv train loss|acc:	0.03|0.9969
+[INFO 2018-11-09 12:56:29,546 test_adv] 	Val loss|acc:		0.17|0.9617
+[INFO 2018-11-09 12:56:44,993 test_adv] 	Adv val loss|acc:	0.74|0.8619
+[INFO 2018-11-09 13:00:54,872 test_adv] STEP: 78000
+[INFO 2018-11-09 13:00:54,872 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:00:54,873 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:00:54,873 test_adv] 	Adv train loss|acc:	0.03|0.9977
+[INFO 2018-11-09 13:00:55,768 test_adv] 	Val loss|acc:		0.16|0.9599
+[INFO 2018-11-09 13:01:11,213 test_adv] 	Adv val loss|acc:	0.74|0.8503
+[INFO 2018-11-09 13:05:21,444 test_adv] STEP: 79000
+[INFO 2018-11-09 13:05:21,445 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 13:05:21,445 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:05:21,445 test_adv] 	Adv train loss|acc:	0.03|0.9970
+[INFO 2018-11-09 13:05:22,359 test_adv] 	Val loss|acc:		0.14|0.9639
+[INFO 2018-11-09 13:05:37,775 test_adv] 	Adv val loss|acc:	0.73|0.8594
+[INFO 2018-11-09 13:09:47,677 test_adv] STEP: 80000
+[INFO 2018-11-09 13:09:47,677 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:09:47,677 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:09:47,678 test_adv] 	Adv train loss|acc:	0.03|0.9978
+[INFO 2018-11-09 13:09:48,603 test_adv] 	Val loss|acc:		0.20|0.9544
+[INFO 2018-11-09 13:10:03,993 test_adv] 	Adv val loss|acc:	0.78|0.8501
+[INFO 2018-11-09 13:14:14,895 test_adv] STEP: 81000
+[INFO 2018-11-09 13:14:14,895 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 13:14:14,895 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:14:14,895 test_adv] 	Adv train loss|acc:	0.03|0.9967
+[INFO 2018-11-09 13:14:15,781 test_adv] 	Val loss|acc:		0.14|0.9642
+[INFO 2018-11-09 13:14:31,152 test_adv] 	Adv val loss|acc:	0.73|0.8594
+[INFO 2018-11-09 13:18:40,700 test_adv] STEP: 82000
+[INFO 2018-11-09 13:18:40,700 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:18:40,700 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:18:40,700 test_adv] 	Adv train loss|acc:	0.03|0.9980
+[INFO 2018-11-09 13:18:41,590 test_adv] 	Val loss|acc:		0.17|0.9562
+[INFO 2018-11-09 13:18:56,960 test_adv] 	Adv val loss|acc:	0.78|0.8474
+[INFO 2018-11-09 13:23:06,555 test_adv] STEP: 83000
+[INFO 2018-11-09 13:23:06,555 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:23:06,556 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:23:06,556 test_adv] 	Adv train loss|acc:	0.03|0.9971
+[INFO 2018-11-09 13:23:07,448 test_adv] 	Val loss|acc:		0.14|0.9671
+[INFO 2018-11-09 13:23:22,859 test_adv] 	Adv val loss|acc:	0.82|0.8501
+[INFO 2018-11-09 13:27:32,782 test_adv] STEP: 84000
+[INFO 2018-11-09 13:27:32,782 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:27:32,782 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:27:32,782 test_adv] 	Adv train loss|acc:	0.03|0.9980
+[INFO 2018-11-09 13:27:33,682 test_adv] 	Val loss|acc:		0.16|0.9590
+[INFO 2018-11-09 13:27:49,135 test_adv] 	Adv val loss|acc:	0.75|0.8544
+[INFO 2018-11-09 13:31:59,195 test_adv] STEP: 85000
+[INFO 2018-11-09 13:31:59,195 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:31:59,195 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:31:59,195 test_adv] 	Adv train loss|acc:	0.03|0.9971
+[INFO 2018-11-09 13:32:00,081 test_adv] 	Val loss|acc:		0.12|0.9658
+[INFO 2018-11-09 13:32:15,555 test_adv] 	Adv val loss|acc:	0.75|0.8481
+[INFO 2018-11-09 13:36:26,712 test_adv] STEP: 86000
+[INFO 2018-11-09 13:36:26,713 test_adv] 	Elapsed time:	268s
+[INFO 2018-11-09 13:36:26,713 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:36:26,713 test_adv] 	Adv train loss|acc:	0.03|0.9976
+[INFO 2018-11-09 13:36:27,626 test_adv] 	Val loss|acc:		0.16|0.9567
+[INFO 2018-11-09 13:36:43,040 test_adv] 	Adv val loss|acc:	0.72|0.8531
+[INFO 2018-11-09 13:40:53,175 test_adv] STEP: 87000
+[INFO 2018-11-09 13:40:53,175 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:40:53,175 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:40:53,175 test_adv] 	Adv train loss|acc:	0.03|0.9971
+[INFO 2018-11-09 13:40:54,078 test_adv] 	Val loss|acc:		0.15|0.9608
+[INFO 2018-11-09 13:41:09,548 test_adv] 	Adv val loss|acc:	0.68|0.8710
+[INFO 2018-11-09 13:45:19,805 test_adv] STEP: 88000
+[INFO 2018-11-09 13:45:19,805 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 13:45:19,805 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:45:19,805 test_adv] 	Adv train loss|acc:	0.03|0.9978
+[INFO 2018-11-09 13:45:20,722 test_adv] 	Val loss|acc:		0.18|0.9599
+[INFO 2018-11-09 13:45:36,107 test_adv] 	Adv val loss|acc:	0.75|0.8565
+[INFO 2018-11-09 13:49:46,242 test_adv] STEP: 89000
+[INFO 2018-11-09 13:49:46,242 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:49:46,242 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:49:46,242 test_adv] 	Adv train loss|acc:	0.03|0.9981
+[INFO 2018-11-09 13:49:47,134 test_adv] 	Val loss|acc:		0.17|0.9615
+[INFO 2018-11-09 13:50:02,628 test_adv] 	Adv val loss|acc:	0.81|0.8599
+[INFO 2018-11-09 13:54:12,480 test_adv] STEP: 90000
+[INFO 2018-11-09 13:54:12,481 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 13:54:12,481 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:54:12,481 test_adv] 	Adv train loss|acc:	0.03|0.9970
+[INFO 2018-11-09 13:54:13,380 test_adv] 	Val loss|acc:		0.18|0.9594
+[INFO 2018-11-09 13:54:28,792 test_adv] 	Adv val loss|acc:	0.73|0.8646
+[INFO 2018-11-09 13:58:39,716 test_adv] STEP: 91000
+[INFO 2018-11-09 13:58:39,716 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 13:58:39,718 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 13:58:39,718 test_adv] 	Adv train loss|acc:	0.03|0.9975
+[INFO 2018-11-09 13:58:40,646 test_adv] 	Val loss|acc:		0.16|0.9612
+[INFO 2018-11-09 13:58:56,013 test_adv] 	Adv val loss|acc:	0.71|0.8630
+[INFO 2018-11-09 14:03:06,202 test_adv] STEP: 92000
+[INFO 2018-11-09 14:03:06,202 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 14:03:06,202 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 14:03:06,202 test_adv] 	Adv train loss|acc:	0.03|0.9977
+[INFO 2018-11-09 14:03:07,116 test_adv] 	Val loss|acc:		0.14|0.9651
+[INFO 2018-11-09 14:03:22,553 test_adv] 	Adv val loss|acc:	0.73|0.8664
+[INFO 2018-11-09 14:07:32,730 test_adv] STEP: 93000
+[INFO 2018-11-09 14:07:32,730 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 14:07:32,730 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 14:07:32,730 test_adv] 	Adv train loss|acc:	0.03|0.9980
+[INFO 2018-11-09 14:07:33,632 test_adv] 	Val loss|acc:		0.14|0.9651
+[INFO 2018-11-09 14:07:49,080 test_adv] 	Adv val loss|acc:	0.70|0.8469
+[INFO 2018-11-09 14:11:58,935 test_adv] STEP: 94000
+[INFO 2018-11-09 14:11:58,935 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 14:11:58,936 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 14:11:58,936 test_adv] 	Adv train loss|acc:	0.03|0.9967
+[INFO 2018-11-09 14:11:59,842 test_adv] 	Val loss|acc:		0.13|0.9671
+[INFO 2018-11-09 14:12:15,270 test_adv] 	Adv val loss|acc:	0.73|0.8624
+[INFO 2018-11-09 14:16:25,243 test_adv] STEP: 95000
+[INFO 2018-11-09 14:16:25,243 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 14:16:25,243 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 14:16:25,244 test_adv] 	Adv train loss|acc:	0.03|0.9982
+[INFO 2018-11-09 14:16:26,140 test_adv] 	Val loss|acc:		0.14|0.9646
+[INFO 2018-11-09 14:16:41,527 test_adv] 	Adv val loss|acc:	0.78|0.8456
+[INFO 2018-11-09 14:20:52,228 test_adv] STEP: 96000
+[INFO 2018-11-09 14:20:52,228 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 14:20:52,228 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 14:20:52,228 test_adv] 	Adv train loss|acc:	0.03|0.9977
+[INFO 2018-11-09 14:20:53,121 test_adv] 	Val loss|acc:		0.18|0.9560
+[INFO 2018-11-09 14:21:08,537 test_adv] 	Adv val loss|acc:	0.75|0.8488
+[INFO 2018-11-09 14:25:18,825 test_adv] STEP: 97000
+[INFO 2018-11-09 14:25:18,826 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 14:25:18,826 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 14:25:18,826 test_adv] 	Adv train loss|acc:	0.03|0.9975
+[INFO 2018-11-09 14:25:19,729 test_adv] 	Val loss|acc:		0.13|0.9628
+[INFO 2018-11-09 14:25:35,237 test_adv] 	Adv val loss|acc:	0.74|0.8571
+[INFO 2018-11-09 14:29:45,544 test_adv] STEP: 98000
+[INFO 2018-11-09 14:29:45,544 test_adv] 	Elapsed time:	267s
+[INFO 2018-11-09 14:29:45,544 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 14:29:45,545 test_adv] 	Adv train loss|acc:	0.03|0.9979
+[INFO 2018-11-09 14:29:46,463 test_adv] 	Val loss|acc:		0.15|0.9615
+[INFO 2018-11-09 14:30:01,932 test_adv] 	Adv val loss|acc:	0.77|0.8512
+[INFO 2018-11-09 14:34:11,956 test_adv] STEP: 99000
+[INFO 2018-11-09 14:34:11,956 test_adv] 	Elapsed time:	266s
+[INFO 2018-11-09 14:34:11,957 test_adv] 	Train loss|acc:		0.00|1.0000
+[INFO 2018-11-09 14:34:11,957 test_adv] 	Adv train loss|acc:	0.03|0.9979
+[INFO 2018-11-09 14:34:12,858 test_adv] 	Val loss|acc:		0.16|0.9630
+[INFO 2018-11-09 14:34:28,257 test_adv] 	Adv val loss|acc:	0.82|0.8533

@@ -288,7 +288,7 @@ class CarliniWagnerL2(object):
         elif 'y_target' in kwargs and kwargs['y_target'] is not None:
             labels = kwargs['y_target']
         else:
-            preds = self.model.get_probs(x)
+            preds = self.model.get_output(x)
             preds_max = reduce_max(preds, 1, keepdims=True)
             original_predictions = tf.to_float(tf.equal(preds, preds_max))
             labels = tf.stop_gradient(original_predictions)

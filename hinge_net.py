@@ -9,12 +9,14 @@ from keras.layers import (Activation, Dense, Flatten, Lambda, Conv2D, Input,
 
 class HingeNet():
 
-    def __init__(self, scope, input_shape, output_shape, learning_rate=1e-3, 
+    def __init__(self, scope, input_shape, output_shape, loss="xent", 
+                 margin=1, learning_rate=1e-3, reg=0, activation=None,
                  load_model=True, save_path="model/hingenet.h5"):
 
         self.scope = scope
         self.save_path = save_path
         self.output_shape = output_shape
+        self.activation = activation
         self.height, self.width, self.channel = input_shape
 
         # Create placeholders
@@ -26,70 +28,102 @@ class HingeNet():
             
             inpt = Input(shape=input_shape)
             # Small: v1-3
-            # conv1 = Conv2D(32, (3, 3), activation='relu')(inpt)
-            # conv2 = Conv2D(64, (3, 3), activation='relu')(conv1)
-            # mp1 = MaxPooling2D(pool_size=(2, 2))(conv2)
-            # drop1 = Dropout(0.25)(mp1)
-            # flat = Flatten()(drop1)
-            # dense1 = Dense(128, activation='relu')(flat)
-            # drop2 = Dropout(0.5)(dense1)
-            # output = Dense(output_shape[0], activation=None)(drop2)
+            # u = Conv2D(32, (3, 3), activation='relu')(inpt)
+            # u = Conv2D(64, (3, 3), activation='relu')(u)
+            # u = MaxPooling2D(pool_size=(2, 2))(u)
+            # u = Dropout(0.25)(u)
+            # u = Flatten()(u)
+            # u = Dense(128, activation='relu')(u)
+            # u = Dropout(0.5)(u)
+            # u = Dense(output_shape[0], activation=None)(u)
             # Large: v4
-            conv1 = Conv2D(32, (5, 5), activation='relu')(inpt)
-            conv2 = Conv2D(64, (3, 3), activation='relu')(conv1)
-            conv3 = Conv2D(128, (3, 3), activation='relu')(conv2)
-            flat = Flatten()(conv3)
-            dense1 = Dense(512, activation='relu')(flat)
-            drop1 = Dropout(0.25)(dense1)
-            dense2 = Dense(128, activation='relu')(drop1)
-            drop2 = Dropout(0.5)(dense2)
-            output = Dense(output_shape[0], activation=None)(drop2)
+            # u = Conv2D(32, (5, 5), activation='relu')(inpt)
+            # u = Conv2D(64, (3, 3), activation='relu')(u)
+            # u = Conv2D(128, (3, 3), activation='relu')(u)
+            # u = Flatten()(u)
+            # u = Dense(256, activation='relu')(u)
+            # u = Dropout(0.25)(u)
+            # u = Dense(128, activation='relu')(u)
+            # u = Dropout(0.5)(u)
+            # u = Dense(output_shape[0], activation=None)(u)
             # dense3 = Dense(output_shape[0], activation=None)(drop2)
-            # output = Activation('sigmoid')(dense3)
-            # output = Activation('softmax')(dense3)
-            
-            # from keras.utils.generic_utils import get_custom_objects
+            # Madry 
+            # u = Conv2D(32, (5, 5), activation='relu')(inpt)
+            # u = MaxPooling2D(pool_size=(2, 2))(u)
+            # u = Conv2D(64, (5, 5), activation='relu')(u)
+            # u = MaxPooling2D(pool_size=(2, 2))(u)
+            # u = Flatten()(u)
+            # u = Dense(1024, activation='relu')(u)
+            # u = Dense(output_shape[0], activation=None)(u)
+
+            def weird_activation(x):
+                # return tf.maximum(x, 0)
+                return tf.clip_by_value(x, -1, 1)
+            # Small
+            u = Conv2D(32, (3, 3), activation=weird_activation)(inpt)
+            u = Conv2D(64, (3, 3), activation=weird_activation)(u)
+            u = MaxPooling2D(pool_size=(2, 2))(u)
+            u = Dropout(0.25)(u)
+            u = Flatten()(u)
+            u = Dense(128, activation=weird_activation)(u)
+            u = Dropout(0.5)(u)
+            u = Dense(output_shape[0], activation=None)(u)
+            # Madry
+            # u = Conv2D(32, (5, 5), activation=weird_activation)(inpt)
+            # u = MaxPooling2D(pool_size=(2, 2))(u)
+            # u = Conv2D(64, (5, 5), activation=weird_activation)(u)
+            # u = MaxPooling2D(pool_size=(2, 2))(u)
+            # u = Flatten()(u)
+            # u = Dense(1024, activation=weird_activation)(u)
+            # u = Dense(output_shape[0], activation=None)(u)
+
             def custom_activation(x):
                 return K.log(x)
-            # get_custom_objects().update({'custom_activation': Activation(custom_activation)})
-            # output = Activation(custom_activation)(dense3)
 
-            self.model = keras.models.Model(inputs=inpt, outputs=output)
+            if activation == "softmax":
+                u = Activation('softmax')(u)
+            elif activation == "sigmoid":
+                u = Activation('sigmoid')(u)
+            elif activation == "log":
+                u = Activation(custom_activation)(u)
+            elif activation == "custom":
+                u = Activation(weird_activation)(u)
+
+            self.model = keras.models.Model(inputs=inpt, outputs=u)
             self.output = self.model(self.x)
 
             self.model_before_sigmoid = keras.models.Model(
                 inputs=self.model.get_input_at(0), outputs=self.model.layers[-2].output)
 
-        # Weight regularization
-        self.reg_loss = 0
-        # All layers
-        # for l in self.model.layers:
-        #     w = l.weights
-        #     if len(w) != 0:
-        #         self.reg_loss += tf.reduce_sum(tf.square(w[0]))
-        # Only last layer
-        # self.reg_loss = tf.reduce_sum(tf.square(self.model.layers[-1].weights[0]))
-
         # Calculate loss
-        indices = tf.range(tf.shape(self.output)[0])
-        gather_ind = tf.stack([indices, self.y], axis=1)
-        y_label = tf.gather_nd(self.output, gather_ind)
-        # Get 2 largest outputs
-        y_2max = tf.nn.top_k(self.output, 2)[0]
-        # Find y_max = max(z[i != y])
-        i_max = tf.to_int32(tf.argmax(self.output, axis=1))
-        y_max = tf.where(tf.equal(self.y, i_max), y_2max[:, 1], y_2max[:, 0])
-        self.loss = tf.reduce_mean(tf.maximum(0., 1. - y_label + y_max))
-
-        # Softmax loss
-        # loss = tf.nn.sparse_softmax_cross_entropy_with_logits(
-        #     labels=self.y, logits=self.output)
-        # self.loss = tf.reduce_mean(loss)
+        if loss == "hinge":
+            indices = tf.range(tf.shape(self.output)[0])
+            gather_ind = tf.stack([indices, self.y], axis=1)
+            y_label = tf.gather_nd(self.output, gather_ind)
+            # Get 2 largest outputs
+            y_2max = tf.nn.top_k(self.output, 2)[0]
+            # Find y_max = max(z[i != y])
+            i_max = tf.to_int32(tf.argmax(self.output, axis=1))
+            y_max = tf.where(tf.equal(self.y, i_max), y_2max[:, 1], y_2max[:, 0])
+            self.loss = tf.reduce_mean(tf.maximum(0., margin - y_label + y_max))
+        elif loss == "xent":
+            loss = tf.nn.sparse_softmax_cross_entropy_with_logits(
+                labels=self.y, logits=self.output)
+            self.loss = tf.reduce_mean(loss)
 
         self.local_grad = tf.gradients(self.loss, self.x)
 
-        if self.reg_loss is not None:
-            self.loss += 1e-2 * self.reg_loss
+        # Weight regularization
+        self.reg_loss = 0
+        # All layers
+        for l in self.model.layers:
+            w = l.weights
+            if len(w) != 0:
+                self.reg_loss += tf.reduce_sum(tf.square(w[0]))
+        # Only last layer
+        # self.reg_loss = tf.reduce_sum(tf.square(self.model.layers[-1].weights[0]))
+
+        self.loss += reg * self.reg_loss
 
         # Set up optimizer
         with tf.variable_scope(scope + "_opt"):
@@ -110,8 +144,10 @@ class HingeNet():
                 print("Model was built, but no weight was loaded")
 
     def get_output(self, x):
-        return self.model(x)
-        # return self.model_before_sigmoid(x)
+        if self.activation is None:
+            return self.model(x)
+        else:
+            return self.model_before_sigmoid(x)
 
     def train_model(self, sess, data, n_epoch=10, batch_size=128):
 
