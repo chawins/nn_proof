@@ -2,6 +2,8 @@ from keras.layers.core import Layer
 # from tensorflow.keras.layers import Layer
 import tensorflow as tf
 import numpy as np
+import keras
+import keras.backend as K
 
 
 class HSVDiffThres(Layer):
@@ -28,7 +30,7 @@ class HSVDiffThres(Layer):
         """
 
         def clip_sigmoid(x):
-            return 1 / (1 + tf.exp(-tf.clip_by_value(x, -38, 100)))
+            return 1 / (1 + tf.exp(-tf.clip_by_value(x, -88, 100)))
 
         thres_range = tf.constant(self.thres_range, dtype=tf.float32)
         # Soft threshold using two sigmoid
@@ -89,3 +91,40 @@ class HSVHardThres(Layer):
 
     def compute_output_shape(self, input_shape):
         return (input_shape[0], self.output_dim[0], self.output_dim[1], 1)
+
+
+class SumLayer(Layer):
+    
+    def __init__(self, output_dim, activation="sigmoid", steep=100, **kwargs):
+        self.steep = steep
+        self.output_dim = output_dim
+        self.activation = activation
+        super(SumLayer, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        # Create a trainable weight variable for this layer.
+        # self.kernel = self.add_weight(name='kernel', 
+        #                               shape=(input_shape[1], self.output_dim),
+        #                               initializer=keras.initializers.Ones(),
+        #                               trainable=False)
+        self.kernel = tf.ones([input_shape[1], self.output_dim])
+        self.bias = self.add_weight(name='bias', 
+                                    shape=(self.output_dim, ),
+                                    initializer=keras.initializers.Constant(value=0.5),
+                                    trainable=True)
+        super(SumLayer, self).build(input_shape)  # Be sure to call this at the end
+
+    def call(self, x):
+
+        def clip_sigmoid(x):
+            return 1 / (1 + tf.exp(-tf.clip_by_value(x, -88, 100)))
+
+        sum_pixels = K.dot(x, self.kernel) / tf.cast(tf.shape(x)[1], tf.float32)
+        if self.activation == "sigmoid":
+            thres = clip_sigmoid(self.steep*(sum_pixels - self.bias))
+        else:
+            thres = sum_pixels - self.bias
+        return thres
+
+    def compute_output_shape(self, input_shape):
+        return (input_shape[0], self.output_dim)

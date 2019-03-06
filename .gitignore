@@ -13,6 +13,7 @@ data/
 keras_weights/
 vis/
 model/
+*.log
 
 # OS generated files #
 ######################

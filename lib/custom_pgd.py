@@ -30,7 +30,6 @@ class FastGradientMethod(object):
         Note: the model parameter should be an instance of the
         cleverhans.model.Model abstraction provided by CleverHans.
         """
-
         # super(FastGradientMethod, self).__init__(model, sess, dtypestr, **kwargs)
         import tensorflow as tf
         self.tf_dtype = tf.as_dtype(dtypestr)
