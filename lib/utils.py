@@ -1,6 +1,7 @@
+from scipy import ndimage as ndi
+
 from lib.keras_utils import *
 from parameters import *
-from scipy import ndimage as ndi
 from skimage.feature import canny
 
 # Threshold for checking mask area
@@ -219,7 +220,7 @@ def load_gtsrb(n_channel=3, train_file_name=None):
 
 def filter_samples(model, x, y, y_target=None):
     """
-    Returns samples and their corresponding labels that are correctly classified 
+    Returns samples and their corresponding labels that are correctly classified
     by the model and are not classified as target if specified.
 
     Parameters
@@ -231,7 +232,7 @@ def filter_samples(model, x, y, y_target=None):
     y        : np.array, shape=(n_sample, NUM_LABELS)
                Corresponding true labels of x. Must be one-hot encoded.
     y_target : (optional) np.array, shape=(n_sample, NUM_LABELS)
-               Specified if you want to also exclude samples that are 
+               Specified if you want to also exclude samples that are
                classified as target
 
     Return

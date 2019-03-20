@@ -1,11 +1,13 @@
-from keras.layers.core import Layer
-# from tensorflow.keras.layers import Layer
 import tensorflow as tf
-import numpy as np
+from keras.layers.core import Layer
 
 
 class RGB2HSV(Layer):
     """
+    Differentiable Keras layer that converts RGB to HSV
+
+    Adapted from python code
+    http://code.activestate.com/recipes/576919-python-rgb-and-hsv-conversion/
     """
 
     def __init__(self,
@@ -18,9 +20,7 @@ class RGB2HSV(Layer):
         super(RGB2HSV, self).build(input_shape)
 
     def call(self, x):
-        """
-        Adapted from python code (http://code.activestate.com/recipes/576919-python-rgb-and-hsv-conversion/)
-        """
+
         r, g, b = x[:, :, :, 0], x[:, :, :, 1], x[:, :, :, 2]
         mx = tf.maximum(r, tf.maximum(g, b))
         mn = tf.minimum(r, tf.minimum(g, b))
@@ -35,19 +35,20 @@ class RGB2HSV(Layer):
         #     h = (60 * ((b-r)/df) + 120) % 360
         # elif mx == b:
         #     h = (60 * ((r-g)/df) + 240) % 360
-        
+
         ZERO = tf.zeros_like(r)
         # This line is necessary for preventing nan gradients from tf.where
         df = tf.where(df > ZERO, df, ZERO + 1)
         # -df < g-b < df and so -1/6 < (g-b)/df < 1/6
-        h = tf.where(r > g, 
-                     tf.where(r > b, 
-                              (g - b)/(df*6) + 1,      # r > b, r > g
-                              (r - g)/(df*6) + 2/3),   # b >= r > g
-                     tf.where(g > b, 
-                              (b - r)/(df*6) + 1/3,    # g > b, g >= r 
-                              tf.where(df > ZERO,     # b >= g >= r
-                                       (r - g)/(df*6) + 2/3, # b > g >= r
+        h = tf.where(r > g,
+                     tf.where(r > b,
+                              (g - b) / (df * 6) + 1,        # r > b, r > g
+                              (r - g) / (df * 6) + 2 / 3),   # b >= r > g
+                     tf.where(g > b,
+                              (b - r) / (df * 6) + 1 / 3,    # g > b, g >= r
+                              tf.where(df > ZERO,            # b >= g >= r
+                                       (r - g) / (df * 6) + \
+                                       2 / 3,  # b > g >= r
                                        ZERO)))               # b = g = r (df = 0)
 
         # Ensure circular value falls in [0, 1] correctly (h = h % 360)
@@ -57,10 +58,10 @@ class RGB2HSV(Layer):
         #     s = 0
         # else:
         #     s = df/mx
-        s = tf.where(mx == ZERO, mx, df/mx)
+        s = tf.where(mx == ZERO, mx, df / mx)
 
         v = mx
-        hsv = tf.concat([tf.expand_dims(h, -1), tf.expand_dims(s, -1), 
+        hsv = tf.concat([tf.expand_dims(h, -1), tf.expand_dims(s, -1),
                          tf.expand_dims(v, -1)], axis=-1)
         return hsv
 

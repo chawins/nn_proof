@@ -1,6 +1,6 @@
+import keras
 import numpy as np
 import tensorflow as tf
-import keras
 from keras.layers import (Activation, Dense, Dropout, Flatten, Lambda,
                           MaxPooling2D, Reshape)
 from keras.layers.advanced_activations import LeakyReLU
@@ -10,6 +10,7 @@ from keras.models import Sequential, model_from_json
 from keras.optimizers import Adam
 from keras.regularizers import l2
 from keras.utils import np_utils
+
 from stn.spatial_transformer import SpatialTransformer
 
 
@@ -136,7 +137,7 @@ def conv_model(input_shape=(32, 32, 3)):
 
     model = Sequential()
     model.add(Lambda(
-        lambda x: x*2 - 1.,
+        lambda x: x * 2 - 1.,
         input_shape=(32, 32, 3),
         output_shape=(32, 32, 3)))
     model.add(BatchNormalization())
@@ -195,7 +196,7 @@ def conv_model_no_color_adjust(input_shape=(32, 32, 3)):
 
     model = Sequential()
     model.add(Lambda(
-        lambda x: x*2 - 1.,
+        lambda x: x * 2 - 1.,
         input_shape=(32, 32, 3),
         output_shape=(32, 32, 3)))
     # model.add(BatchNormalization())
@@ -251,7 +252,7 @@ def build_cnn():
 
     # Build model
     inpt = keras.layers.Input(shape=(32, 32, 3))
-    rescl = Lambda(lambda x: x*2 - 1., output_shape=(32, 32, 3))(inpt)
+    rescl = Lambda(lambda x: x * 2 - 1., output_shape=(32, 32, 3))(inpt)
     conv1 = keras.layers.Convolution2D(
         16, (5, 5), padding='same', activation='relu')(rescl)
     drop1 = keras.layers.Dropout(rate=0.1)(conv1)
@@ -299,7 +300,7 @@ def build_cnn_large():
 
     # Build model
     inpt = keras.layers.Input(shape=(32, 32, 3))
-    rescl = Lambda(lambda x: x*2 - 1., output_shape=(32, 32, 3))(inpt)
+    rescl = Lambda(lambda x: x * 2 - 1., output_shape=(32, 32, 3))(inpt)
     conv1 = keras.layers.Convolution2D(
         32, (5, 5), padding='same', activation='relu')(rescl)
     drop1 = keras.layers.Dropout(rate=0.1)(conv1)
@@ -343,7 +344,7 @@ def build_cnn_no_stn():
 
     model = Sequential()
     model.add(Lambda(
-        lambda x: x*2 - 1.,
+        lambda x: x * 2 - 1.,
         input_shape=(32, 32, 3),
         output_shape=(32, 32, 3)))
     model.add(Conv2D(16, (5, 5), padding='same',
@@ -392,7 +393,7 @@ def template_match_nn():
 
     model = Sequential()
     model.add(Lambda(
-        lambda x: x*2 - 1.,
+        lambda x: x * 2 - 1.,
         input_shape=(32, 32, 3),
         output_shape=(32, 32, 3)))
     model.add(SpatialTransformer(localization_net=locnet(),

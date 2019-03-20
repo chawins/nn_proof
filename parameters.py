@@ -10,7 +10,6 @@ import threading
 import time
 from os import listdir
 
-import cv2
 import keras
 import keras.backend as K
 import matplotlib.pyplot as plt
@@ -22,6 +21,8 @@ from keras.utils import to_categorical
 from pandas.io.parsers import read_csv
 from scipy import misc
 from tensorflow.contrib.opt import ScipyOptimizerInterface
+
+import cv2
 
 # Set constants (MNIST)
 # NUM_LABELS = 10                             # Number of labels

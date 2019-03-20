@@ -1,13 +1,16 @@
 import warnings
 
+import numpy as np
+import tensorflow as tf
 from cleverhans.attacks import Attack
-from cleverhans.attacks_tf import _logger, np_dtype, tf_dtype, ZERO
-from cleverhans.compat import (reduce_any, reduce_max, reduce_mean, reduce_min,
-                               reduce_sum)
+from cleverhans.attacks_tf import ZERO, _logger, np_dtype, tf_dtype
 from cleverhans.model import CallableModelWrapper, Model
+
 from parameters import *
 
-CONF = 1e-2
+# from cleverhans.attacks.carlini_wagner_l2 import (ZERO, CarliniWagnerL2,
+# _logger, np_dtype, tf_dtype)
+
 
 class CustomCarliniWagnerL2(Attack):
     """
@@ -20,8 +23,7 @@ class CustomCarliniWagnerL2(Attack):
     CarliniWagnerL2_TF_WB.
     """
 
-    def __init__(self, model, model2, thres, back='tf', sess=None,
-                 dtypestr='float32'):
+    def __init__(self, model, model2, thres, sess=None, dtypestr='float32'):
         """
         All params are the same as the original version in Cleverhans. There is
         one extra param:
@@ -36,11 +38,17 @@ class CustomCarliniWagnerL2(Attack):
         if not isinstance(model, Model):
             model = CallableModelWrapper(model, 'logits')
 
-        super(CustomCarliniWagnerL2, self).__init__(model, back, sess, dtypestr)
+        # super(CustomCarliniWagnerL2, self).__init__(
+        #     model, sess, dtypestr, 'tf')
+        self.model = model
         self.model2 = model2
         self.thres = thres
+        self.sess = sess
+        self.dtypestr = dtypestr
+        self.tf_dtype = tf.as_dtype(dtypestr)
+        self.np_dtype = np.dtype(dtypestr)
+        self.graphs = {}
 
-        import tensorflow as tf
         self.feedable_kwargs = {'y': self.tf_dtype, 'y_target': self.tf_dtype}
 
         self.structural_kwargs = [
@@ -93,7 +101,7 @@ class CustomCarliniWagnerL2(Attack):
         labels, nb_classes = self.get_or_guess_labels(x, kwargs)
 
         attack = CustomCarliniWagnerL2_TF(
-            self.sess, self.model, self.model2, self.batch_size, 
+            self.sess, self.model, self.model2, self.batch_size,
             self.confidence, 'y_target' in kwargs, self.learning_rate,
             self.binary_search_steps, self.max_iterations, self.abort_early,
             self.initial_const, self.clip_min, self.clip_max, nb_classes,
@@ -144,7 +152,7 @@ class CustomCarliniWagnerL2_TF(object):
                  shape, thres):
         """
         """
-
+        self.model2_conf = 1e-2
         self.sess = sess
         self.TARGETED = targeted
         self.LEARNING_RATE = learning_rate
@@ -188,16 +196,16 @@ class CustomCarliniWagnerL2_TF(object):
         # distance to the input data
         other = (tf.tanh(self.timg) + 1) / \
             2 * (clip_max - clip_min) + clip_min
-        self.l2dist = reduce_sum(
+        self.l2dist = tf.reduce_sum(
             tf.square(self.newimg - other), list(range(1, len(shape))))
 
-        # Model 1
+        # Model 1 - main network
         # prediction BEFORE-SOFTMAX of the model
         output = model1.get_logits(self.newimg)
         self.output = output
         # compute the probability of the label class versus the maximum other
-        real = reduce_sum((self.tlab) * output, 1)
-        other = reduce_max((1 - self.tlab) * output - self.tlab * 10000, 1)
+        real = tf.reduce_sum((self.tlab) * output, 1)
+        other = tf.reduce_max((1 - self.tlab) * output - self.tlab * 10000, 1)
         if self.TARGETED:
             # if targeted, optimize for making the other class most likely
             loss1 = tf.maximum(ZERO(), other - real + self.CONFIDENCE)
@@ -205,18 +213,15 @@ class CustomCarliniWagnerL2_TF(object):
             # if untargeted, optimize for making this class least likely.
             loss1 = tf.maximum(ZERO(), real - other + self.CONFIDENCE)
 
-        # Model 2
+        # Model 2 - auxilary network (e.g. featnet)
+        # Attack on specified layer given by model.get_output()
         self.output2 = model2.get_output(self.newimg)
-        # Attack on layer after sigmoid (deprecated)
-        # self.loss1_2 = tf.maximum(ZERO(), thres + CONF - output)
-        # Attack on layer before sigmoid
-        self.loss1_2 = tf.reduce_sum(tf.maximum(ZERO(), CONF - self.output2), axis=1)
+        self.loss1_2 = tf.reduce_sum(tf.maximum(
+            ZERO(), thres + self.model2_conf - self.output2), -1)
 
         # Sum up the losses
         self.loss1 = self.const * (loss1 + self.loss1_2)
-        # self.loss1 = self.const * self.loss1_2
-        # self.loss1 = self.const * loss1
-        self.loss = reduce_mean(self.loss1 + self.l2dist)
+        self.loss = tf.reduce_mean(self.loss1 + self.l2dist)
 
         # Setup the adam optimizer and keep track of variables we're creating
         start_vars = set(x.name for x in tf.global_variables())
@@ -268,19 +273,20 @@ class CustomCarliniWagnerL2_TF(object):
                 return x == y
             else:
                 return x != y
-        
+
         def clip_sig(x):
             return 1 / (1 + np.exp(-np.clip(x, -30, 30)))
 
         def check_model2(x):
             # return True
-            # return np.sum(clip_sig(x)) > self.thres
+            # return np.sum(clip_sig(x)) >= self.thres
+            # def custom_activation(x):
+            #     return x / np.sqrt(np.square(x) + 1)
             def custom_activation(x):
-                return x / np.sqrt(np.square(x) + 1)
-            return np.sum(custom_activation(x)) > self.thres
+                return np.clip(x, 0, 1)
+            return np.sum(custom_activation(x)) >= self.thres
 
         batch_size = self.batch_size
-
         oimgs = np.clip(imgs, self.clip_min, self.clip_max)
 
         # re-scale instances to be within range [0, 1]

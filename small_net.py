@@ -5,9 +5,10 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
+
 from parameters import *
-from stn.spatial_transformer import SpatialTransformer
 from stn.conv_model import locnet_v3
+from stn.spatial_transformer import SpatialTransformer
 
 
 def create_simple_cnn(pos, stn_weight=None):
@@ -18,7 +19,7 @@ def create_simple_cnn(pos, stn_weight=None):
 
     model = Sequential()
     model.add(Lambda(
-        lambda x: x*2 - 1.,
+        lambda x: x * 2 - 1.,
         input_shape=(32, 32, 3),
         output_shape=(32, 32, 3)))
     # Add spartial transformer part
@@ -102,7 +103,7 @@ def train_simple_cnn(stn_weight, pos, y, X_train, y_train, X_val, y_val,
     #     plt.show()
     batch_size = 128
     model.fit_generator(datagen.flow(X_train_bal, y_train_bal, batch_size=batch_size),
-                        steps_per_epoch=len(X_train_bal)/batch_size,
+                        steps_per_epoch=len(X_train_bal) / batch_size,
                         epochs=40,
                         verbose=1,
                         shuffle=True,
@@ -117,7 +118,7 @@ def train_simple_cnn(stn_weight, pos, y, X_train, y_train, X_val, y_val,
 
 def eval_simple_cnn(model, y, X_test, y_test):
     """
-    Evaluates small CNN. Returns accuracy, false positive rate, false negative 
+    Evaluates small CNN. Returns accuracy, false positive rate, false negative
     rate. Class '0' is negative (no feature detected), '1' is positive (feature
     detected).
     """
@@ -164,7 +165,7 @@ def gen_balance_data(X_train, y_train, y, r=1):
 
     n_train = len(X_train)
     n_y = len(ind)
-    n_bal = int(n_train*r) - n_y*2  # Number of samples to add
+    n_bal = int(n_train * r) - n_y * 2  # Number of samples to add
     X_eq = np.zeros((n_train + n_bal, 32, 32, 3))
     X_eq[:n_train] = np.copy(X_train)
 
